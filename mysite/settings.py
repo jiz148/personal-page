@@ -127,7 +127,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'home/templates/boot/'),
+    os.path.join(BASE_DIR, 'utils/static/'),
+    os.path.join(BASE_DIR, 'home/templates/home/home_js/'),
 )
 
 STATIC_ROOT = 'static'
