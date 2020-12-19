@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-APP_NAME = 'personal site'
+APP_NAME = 'Personal Site'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
