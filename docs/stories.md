@@ -16,6 +16,9 @@
 * [Front-end](#front)
   - [Config Template Settings](#config-t)
   - [Download Bootstrap and jQuery to Local](#b-and-j)
+  - [Create General Templates](#templates)
+    - [Base Bootstrap](#base-boostrap)
+    - [Base Page](#base-page)
 * [Back-end](#back)
 
 
@@ -107,3 +110,25 @@
 * Copy the files to utils
 * put utils folder in `STATICFILES_DIRS`
 * collect
+
+
+### Creating General Templates
+> I create Django templates using bootstrap and jQuery
+
+
+#### Base Bootstrap
+> base_boostrap.html\
+> First layer, just to import utils and create big structure
+
+* According to [Django Document for Static Files](https://docs.djangoproject.com/en/3.1/howto/static-files/), `{% load static %}`
+* Load first static resources
+* In `<body>`, create needed blocks like `{% block navbar %} {% endblock %}`, `{% block content %} {% endblock %}` `{% block footer %} {% endblock %}`
+* Some extra blocks: welcome, messages(alert)
+
+
+<a id="base-page"></a>
+#### Base Page
+> base_page.html \
+> Second layer, basically implementing the navbar and footer \
+> For overall functionalities across the site \
+> Also implementing Ajax in this page

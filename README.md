@@ -3,4 +3,4 @@
 
 ## Content
 
-[Stories](docs/storys.md)
+[Stories](docs/stories.md)
