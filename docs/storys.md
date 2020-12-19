@@ -12,9 +12,10 @@
   - [Start a New Project](#start)
   - [Config the Django Project](#config-p)
     - [Static files](#static)
+    - [Secret Key](#secret)
 * [Front-end](#front)
   - [Config Template Settings](#config-t)
-  - [Download Bootstrap and ]
+  - [Download Bootstrap and jQuery to Local](#b-and-j)
 * [Back-end](#back)
 
 
@@ -62,6 +63,21 @@
 * collect static files in static directories to server-side static root by: `python manage.py collectstatic`
 
 
+<a id="secret"></a>
+### Secret Key
+> The secret key is used for:
+> * All sessions if you are using any other session backend than django.contrib.sessions.backends.cache, or are using the default get_session_auth_hash().
+> * All messages if you are using CookieStorage or FallbackStorage.
+> * All PasswordResetView tokens.
+> * Any usage of cryptographic signing, unless a different key is provided.
+> 
+> * [reference](https://www.cnblogs.com/cpl9412290130/p/10431514.html)
+
+* In settings, config `SECRET_KEY` to `os.environ["DJ_SECRET_KEY"]`
+* In linux, do `export DJ_SECRET_KEY="xxxxxxxx"`, if not a server you can store it in rc
+* In windows, do `$env:DJ_SECRET_KEY="xxxxxxxx"`, and if not a server you can store commends in `$profile` for powershell
+
+
 <a id="front"></a>
 ## Front-end
 
@@ -81,4 +97,13 @@
 * go to settings and add `'mysite.ctx_processor.settings',` to list `TEMPLATES`
 
 
-###
+<a id="b-and-j"></a>
+### Download Bootstrap and jQuery to Local
+> In this project I use Bootstrap v5.0.0-beta1 and jQuery 3.5.1
+> It is also common to use React and Vanilla Javascript in front-end
+
+* Download Boostrap and jQuery, 
+* `mkdir utils`
+* Copy the files to utils
+* put utils folder in `STATICFILES_DIRS`
+* collect
