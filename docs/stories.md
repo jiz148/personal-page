@@ -22,6 +22,7 @@
         - [Build Ajax](#ajax)
   - [Create Home Page](#home-page)
 * [Back-end](#back)
+  - [Home Page Back-end](#home-back)
 * [Deployment](#deploy)
   - [Secret Key](#secret)
   - [Config Deployment Settings](#config-d)
@@ -165,6 +166,21 @@
 
 <a id="home-page"></a>
 ### Create Home Page
+
+* Should include static file directory home_static
+* Should include Education session
+* Should include Experience session
+* Should include Hobbies session
+
+
+<a id="back"></a>
+## Back-end
+
+
+<a id="home-back"></a>
+### Home Page Back-end
+
+* Should have an url and a view to just render main.html
 
 
 ## Deployment
