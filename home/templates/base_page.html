@@ -1,7 +1,6 @@
 {% extends "base_bootstrap.html" %}
 {% load static %}
 
-<!--reference https://codepen.io/joycousc/pen/RwrVBYe-->
 <!--navbar-->
 {% block navbar %}
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -24,6 +23,11 @@
     </form>
   </div>
 </nav>
+{% endblock %}
+{% block header %}
+<div class="select2-container--open">
+  <img src="{% static 'base_images/cyber-punk.jpg' %}" alt="cyber-punk-image" width="100%">
+</div>
 {% endblock %}
 <!--content-->
 {% block content %}

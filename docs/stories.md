@@ -140,6 +140,12 @@
 * [Bootstrap Document](https://getbootstrap.com/docs/4.5/components/navbar/)
 * Should use from settings for app name and urls
 * Should use `class="navbar-toggler"` and `class="collapse navbar-collapse justify-content-end"` for navbar-toggle for mobile devices
+* Should `fixed-top`
+
+
+##### Header
+
+* Should retain space for navbar 
 
 
 ##### Footer
