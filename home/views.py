@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.views import View
 from django.conf import settings
+from django.http import HttpResponse
 
 
 # Create your views here.
-class HomeView(View):
-    template_name = 'home/main.html'
+class BaseView(View):
+    template_name = 'base_page.html'
 
     def get(self, request):
         host = request.get_host()
@@ -16,3 +17,10 @@ class HomeView(View):
             'islocal': islocal,
         }
         return render(request, self.template_name, ctx)
+
+
+class HomeView(View):
+    template_name = 'home/main.html'
+
+    def get(self, request):
+        return render(request, self.template_name)

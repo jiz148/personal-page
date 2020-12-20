@@ -19,6 +19,8 @@
   - [Create General Templates](#templates)
     - [Base Bootstrap](#base-boostrap)
     - [Base Page](#base-page)
+        - [Build Ajax](#ajax)
+  - [Create Home Page](#home-page)
 * [Back-end](#back)
 * [Deployment](#deploy)
   - [Secret Key](#secret)
@@ -129,7 +131,8 @@
 > base_page.html \
 > Second layer, basically implementing the navbar and footer \
 > For overall functionalities across the site \
-> Also implementing Ajax in this page
+> Also implementing Ajax in this page \
+> [reference](https://codepen.io/joycousc/pen/RwrVBYe)
 
 
 ##### Navbar
@@ -137,6 +140,25 @@
 * [Bootstrap Document](https://getbootstrap.com/docs/4.5/components/navbar/)
 * Should use from settings for app name and urls
 * Should use `class="navbar-toggler"` and `class="collapse navbar-collapse justify-content-end"` for navbar-toggle for mobile devices
+
+
+##### Footer
+
+* Should include a footer at the bottom in the `{% block footer %}`
+* Should include copy right html entity and some external links to other personal spaces
+
+
+<a id="ajax"></a>
+##### Build Ajax
+* Should put the ajax javascript in base_static/base_js folder and then add the root to `STATICFILES_DIRS`
+* Should import js from static
+* Implementing Ajax using jQuery
+* Give the DOM ajax object with ajax functions after loading the page
+* [base.js](../home/templates/base_static/base_js/base.js)
+
+
+<a id="home-page"></a>
+### Create Home Page
 
 
 ## Deployment
