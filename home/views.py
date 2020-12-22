@@ -26,9 +26,15 @@ class HomeView(View):
         return render(request, self.template_name)
 
 
-class EducationDetailView(View):
+class EducationView(View):
     template_name = 'home/education.html'
 
     def get(self, request):
-        print('here')
+        return render(request, self.template_name)
+
+
+class ExperienceView(View):
+    template_name = 'home/experience.html'
+
+    def get(self, request):
         return render(request, self.template_name)

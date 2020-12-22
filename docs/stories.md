@@ -175,7 +175,7 @@
 
 #### Write Home Details
 
-* Should have Details for Education, Experience, Hobbies in 3 other tempates
+* Should have Details for Education, Experience, Hobbies in 3 other templates
 
 
 <a id="back"></a>

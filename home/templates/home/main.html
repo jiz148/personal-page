@@ -12,7 +12,7 @@
             <img class="rounded-circle" src="{% static 'home_images/docker.jpg' %}" alt="Generic placeholder image" width="140" height="140">
             <h2>Experience</h2>
             <p>Software Developer in Infoblox, Tacoma<br>Software Engineer in Bioprober, Bellevue<br><br><br></p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+            <p><a class="btn btn-secondary" href="#" role="button" onclick="$ajax.generateContent('{% url "home:experience" %}'); return false;">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img class="rounded-circle" src="{% static 'home_images/dota2.jpg' %}" alt="Generic placeholder image" width="140" height="140">
