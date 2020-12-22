@@ -173,6 +173,11 @@
 * Should include Hobbies session
 
 
+#### Write Home Details
+
+* Should have Details for Education, Experience, Hobbies in 3 other tempates
+
+
 <a id="back"></a>
 ## Back-end
 

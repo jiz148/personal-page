@@ -24,3 +24,11 @@ class HomeView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class EducationDetailView(View):
+    template_name = 'home/education.html'
+
+    def get(self, request):
+        print('here')
+        return render(request, self.template_name)

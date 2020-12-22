@@ -1,0 +1,61 @@
+{% load static %}
+
+<div class="container-fluid" style="margin-top: 2%">
+    <div class="row" style="margin-bottom: 2%">
+        <h1 class="col-12" style="text-align: center">Education</h1>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>Python Machine Learning</h2>
+            <p class="text-right">December 2018 - May 2019</p>
+            <p class="text-right">University of California, San Diego</p>
+            <ur>
+                <li>
+                    Built deep learning model for image classification (e.g. determine if picture is a cat)
+                </li>
+                <li>
+                    Developed digit recognition neural network with 40,000+ handwritten digits examples
+                </li>
+                <li>
+                    Designed Python3 project fully integrated with CI template of Makefile, Dockerfile, and automation
+                </li>
+                <li>
+                    Based on Agile project planning and S.O.L.I.D principles (to focus on business logic)
+                </li>
+                <li>
+                    Adopted TDD to write tests for mathematics and loading functions
+                </li>
+            </ur>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <h2>Python Machine Learning</h2>
+            <p class="text-right">December 2018 - May 2019</p>
+            <p class="text-right">University of California, San Diego</p>
+            <ur>
+                <li>
+                    Created a three-factor model in R to predict stock prices by explanatory variables
+                </li>
+                <li>
+                    Constructed hypothesis test with least squares method and Wald test
+                </li>
+            </ur>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <h2>Advanced Regressions, Data Analysis</h2>
+            <p class="text-right">December 2018 - May 2019</p>
+            <p class="text-right">University of California, San Diego</p>
+            <ur>
+                <li>
+                    Designed and implemented house price predictor in Python to predict prices of given houses <br>
+                    based on a learning from 1,500+ observations dataset with 80+ explanatory variables
+                </li>
+                <li>
+                    Improved the model to predict the closest results to the test samples in the data competition
+                </li>
+            </ur>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+    <div class="row" style="margin-top: 2%; margin-bottom: 2%">
+        <a href="#" role="button" class="btn btn-secondary" onclick="$ajax.generateContent('{% url "home:home" %}');return false;">Back to Main</a>
+    </div>
+</div>
