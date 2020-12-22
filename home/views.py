@@ -38,3 +38,10 @@ class ExperienceView(View):
 
     def get(self, request):
         return render(request, self.template_name)
+
+
+class HobbiesView(View):
+    template_name = 'home/hobbies.html'
+
+    def get(self, request):
+        return render(request, self.template_name)

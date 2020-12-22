@@ -1,0 +1,77 @@
+{% load static %}
+
+<div class="container-fluid">
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Dota2 Lover.<span class="text-muted">Like, for many years...</span></h2>
+            <p class="lead">
+                Dota2 is an online E-sport. <br>It is very competitive that makes players concentrates on every play<br>
+                I love this game since I enjoy competing with others, and try my best to outplay other geeks.. <br>
+                After all, It's just so fun to play Dota2 with friends.<br>
+            </p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="{% static 'home_images/dota2_sf.jpg' %}" alt="dota2 shadow fiend">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Oh yeah, I do play other games. <span class="text-muted">Gamine is fun to me...</span></h2>
+            <p class="lead">
+                Books, Music, Operas, Comics, Movies... and now, Games! So why not? <br>
+                From 3A games to old schools like Pokemon, Yu-Gi-Oh... even VR games<br>
+                And a lot more! Hopefully I can make my own game in the future!
+            </p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid mx-auto" src="{% static 'home_images/cyber_punk_2077.jpg' %}" alt="cyber punk image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Sports! <span class="text-muted">Both out-doors and in-doors...</span></h2>
+            <p class="lead">
+                Again, competing with other players is fun. <br>
+                Been playing basketball and baseball since childhood. <br>
+                Right now, sport is mainly for health and losing weight...
+            </p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="{% static 'home_images/dirk.jpg' %}" alt="dirk nowitzki image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Music <span class="text-muted">More Music...</span></h2>
+            <p class="lead">
+                Composing music is always fun! <br>
+                Learning Piano and Continuing to play since 4... <br>
+                Love playing in band with friends and watching lives.
+            </p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid mx-auto" src="{% static 'home_images/bob_marley.jpg' %}" alt="bob marley image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row" style="margin-top: 2%; margin-bottom: 2%">
+        <a href="#" role="button" class="btn btn-secondary" onclick="$ajax.generateContent('{% url "home:home" %}');return false;">Back to Main</a>
+    </div>
+
+    <hr class="featurette-divider">
+
+</div>
