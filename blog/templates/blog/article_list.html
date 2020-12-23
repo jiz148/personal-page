@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    {% for article in article_list %}
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <h1>{{ article.title }}</h1>
+            <div class="wrapper">
+                <p style="margin:5px">{{ article.text|slice:":100" }} ...</p>
+                <button type="button" class="btn btn-secondary" style="float:right;margin-right:20px">Read More</button>
+            </div>
+            <hr>
+        </div>
+    </div>
+    {% endfor %}
+</div>

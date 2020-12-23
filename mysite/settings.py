@@ -131,6 +131,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'utils/utils_static/'),
     os.path.join(BASE_DIR, 'home/templates/base_static/'),
     os.path.join(BASE_DIR, 'home/templates/home/home_static/'),
+    os.path.join(BASE_DIR, 'blog/templates/blog_base_static/'),
 )
 
 STATIC_ROOT = 'static'

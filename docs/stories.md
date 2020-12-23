@@ -22,9 +22,13 @@
     - [Base Page](#base-page)
         - [Build Ajax](#ajax)
   - [Create Home Page](#home-page)
+  - [Create Blog Templates](#blog-templates)
 * [Back-end](#back)
   - [Home Page Back-end](#home-back)
   - [Blog Back-end](#blog-back)
+    - [Create Blog Model](#blog-models)
+    - [Create Blog Views](#blog-views)
+    - [Create Blog Urls](#blog-urls)
 * [Deployment](#deploy)
   - [Secret Key](#secret)
   - [Config Deployment Settings](#config-d)
@@ -189,6 +193,28 @@
 * Should have Details for Education, Experience, Hobbies in 3 other templates
 
 
+<a id="blog-templates"></a>
+### Create Blog Templates
+
+
+#### Create Blog Base Template
+
+* [blog_base.html](../blog/templates/blog_base.html)
+* Should have a side bar
+* Should have `blog_staic` folder for static files and config to `STATICFILES_DIRS`
+* Put needed js script in [blog_base.js](../blog/templates/blog_base_static/blog_base_js/blog_base.js) in `blog_base_js`
+* Set the 'Blog' button on `base_page.html` to the blog `base` url
+* After based page loaded, load article list to `blog-content`
+
+
+#### Create Article List Template
+
+* [article_list.html](../blog/templates/blog/article_list.html)
+* loads the `article_list` given by the View
+* Display only first 100 characters of text using `{{ article|slice:":100" }}`
+* Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
+
+
 <a id="back"></a>
 ## Back-end
 
@@ -203,6 +229,7 @@
 ### Blog Back-end
 
 
+<a id="blog-models"></a>
 #### Create Blog Model
 
 ![blog structure](blog_structure.png)
@@ -216,6 +243,23 @@
 * Should have `Favorite` and `Comment` helper Many-To-Many class for comments and favorites
 * Add `Category` and `Article` class to [admin.py](../blog/admin.py)
 * `python manage.py makemigrations`, `python manage.py migrate`
+
+
+<a id="blog-views"></a>
+#### Create Blog Views
+
+* [views.py](../blog/views.py)
+* Should have [owners.py](../blog/owners.py) to override generic views
+* Should include `BlogBaseView`,`ArticleListView`
+
+
+<a id="blog-urls"></a>
+#### Create Blog Urls
+
+* [urls.py](../blog/urls.py)
+* Should include a base url
+* `app_name` blog
+* Should include blog urls in `mysite/urls.py`, like `path('blog', include('blog.urls')),`
 
 
 #### About Superuser
@@ -248,7 +292,6 @@
 > * All messages if you are using CookieStorage or FallbackStorage.
 > * All PasswordResetView tokens.
 > * Any usage of cryptographic signing, unless a different key is provided.
-> 
 > * [reference](https://www.cnblogs.com/cpl9412290130/p/10431514.html)
 
 * In settings, config `SECRET_KEY` to `os.environ["DJ_SECRET_KEY"]`

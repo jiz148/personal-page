@@ -1,9 +1,10 @@
 const home_url = 'home/'
+
 $(document).ready(function () {
     const ajax = {};
-    ajax.generateContent = function generateContent (url) {
+    ajax.generateContent = function generateContent (url, elementId) {
         $.get(url, function (data) {
-            $("#main-content").html(data);
+            $(elementId).html(data);
         });
     };
 

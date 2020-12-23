@@ -1,0 +1,22 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'blog_base_css/style.css' %}" crossorigin="anonymous">
+<script src="{% static 'blog_base_js/blog_base.js' %}"></script>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="sidebar">
+                {% for category in category_list %}
+                <li>
+                    <a href="#" onclick="return false;">
+                        {{ category.name }}
+                    </a>
+                </li>
+                {% endfor %}
+                <hr>
+                <li><a href="#">&Gt; Sign In</a></li>
+            </ul>
+        </div>
+        <div id="blog-content" class="col-md-10"></div>
+    </div>
+</div>

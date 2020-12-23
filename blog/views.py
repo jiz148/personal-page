@@ -1,3 +1,15 @@
 from django.shortcuts import render
+from .owners import OwnerListView
+from .models import Article, Category
 
-# Create your views here.
+
+class BlogBaseView(OwnerListView):
+    model = Category
+    template_name = 'blog_base.html'
+
+
+class ArticleListView(OwnerListView):
+    model = Article
+
+    def get_queryset(self):
+        return super().get_queryset()[:10]
