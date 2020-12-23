@@ -205,6 +205,7 @@
 * Put needed js script in [blog_base.js](../blog/templates/blog_base_static/blog_base_js/blog_base.js) in `blog_base_js`
 * Set the 'Blog' button on `base_page.html` to the blog `base` url
 * After based page loaded, load article list to `blog-content`
+* items in the side bar should include displaying articles in each category, and a sign-in button
 
 
 #### Create Article List Template
@@ -212,6 +213,9 @@
 * [article_list.html](../blog/templates/blog/article_list.html)
 * loads the `article_list` given by the View
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
+* Should display fields: owner, updated_at, category
+* Should have choice of adding and removing to favorites by a star button
+* Should have choice of updating and deleting for the owners
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
 
 
