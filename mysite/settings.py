@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # built apps,
     'home.apps.HomeConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,8 @@ STATICFILES_DIRS = (
 )
 
 STATIC_ROOT = 'static'
+
+
+# Media files
+
+MEDIA_ROOT = os.path.join( BASE_DIR  ,  "media"  )

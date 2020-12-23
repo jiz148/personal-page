@@ -3,7 +3,7 @@
 
 
 ## Basic Django Structure
-![django structure image](Django-life-cycle.png)
+![django structure image](Django_life_cycle.png)
 
 
 ## Content
@@ -11,7 +11,8 @@
 * [Initiate Project](#initiate)
   - [Start a New Project](#start)
   - [Config the Django Project](#config-p)
-    - [Static files](#static)
+    - [Static Files](#static)
+    - [Media Files](#media)
 * [Front-end](#front)
   - [Config App Settings](#config-a)
   - [Config Template Settings](#config-t)
@@ -23,6 +24,7 @@
   - [Create Home Page](#home-page)
 * [Back-end](#back)
   - [Home Page Back-end](#home-back)
+  - [Blog Back-end](#blog-back)
 * [Deployment](#deploy)
   - [Secret Key](#secret)
   - [Config Deployment Settings](#config-d)
@@ -43,13 +45,13 @@
   - `pip freeze > requirments.txt`
 * Create new project called 'mysite': 
   - `Django-Admin startproject mysite`
-  - move the inside project folder to github folder if you like
+  - Move the inside project folder to github folder if you like
   - `python manage.py check`
 * Create first home app:
   - `python manage.py startapp home`
 * First migrate to start the project: 
   - `python manage.py migrate`
-  - in settings `INSTALLED_APPS` add `'home.apps.HomeConfig',`
+  - In settings `INSTALLED_APPS` add `'home.apps.HomeConfig',`
     
 
 <a id="config-p"></a>
@@ -67,15 +69,23 @@
 
 * [Django Document for Static Files](https://docs.djangoproject.com/en/3.1/howto/static-files/) as this may change as version evolves
 * In settings.py, add `STATIC_URL = '/static/'`
-* set static directories like:
+* Set static directories like:
   - ```python
     STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'utils/static/'),
     os.path.join(BASE_DIR, 'home/templates/home/home_js/'),
     )```
-* set a static root for server end, for me: `STATIC_ROOT = 'static'`
-* set static url, according to Django document, in mysite/urls.py, add `urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)`
-* collect static files in static directories to server-side static root by: `python manage.py collectstatic`
+* Set a static root for server end, for me: `STATIC_ROOT = 'static'`
+* Set static url, according to Django document, in `mysite/urls.py`, add `urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)`
+* Collect static files in static directories to server-side static root by: `python manage.py collectstatic`
+
+
+<a id="media"></a>
+#### Media Files
+
+* [reference](https://www.cnblogs.com/harryTree/p/11865900.html)
+* Config `MEDIA_ROOT = os.path.join( BASE_DIR  ,  "media"  )`
+* In `mysite/url.py`, puste `urlpatterns += re_path(r"^media/(?P<path>.*)/", serve, {"document_root": settings.MEDIA_ROOT})`
 
 
 <a id="front"></a>
@@ -94,7 +104,7 @@
           'settings': django_settings,
       }
     ```
-* go to settings and add `'mysite.ctx_processor.settings',` to list `TEMPLATES`
+* Go to settings and add `'mysite.ctx_processor.settings',` to list `TEMPLATES`
 
 
 <a id="b-and-j"></a>
@@ -106,8 +116,8 @@
 * Download Boostrap and jQuery, 
 * `mkdir utils`
 * Copy the files to utils
-* put utils folder in `STATICFILES_DIRS`
-* collect
+* Put utils folder in `STATICFILES_DIRS`
+* Collect
 
 
 ### Creating General Templates
@@ -188,6 +198,44 @@
 * Should have an url and a view to just render main.html
 
 
+<a id="blog-back"></a>
+### Blog Back-end
+
+
+#### Create Blog Model
+
+![blog structure](blog_structure.png)
+* `python manage.py startapp blog`
+* Add new app in settings
+* [models.py](../blog/models.py)
+* Follow the structure of blog,  for example `class Category(models.Model):`
+* For pictures(single picture for now), use `picture = models.FileField(upload_to="article_pic")`
+* Each model should implement `__str__` for showing in admin
+* `favorites` and `comments` field in `Article` class should be `models.ManyToManyField`
+* Should have `Favorite` and `Comment` helper Many-To-Many class for comments and favorites
+* Add `Category` and `Article` class to [admin.py](../blog/admin.py)
+* `python manage.py makemigrations`, `python manage.py migrate`
+
+
+#### About Superuser
+
+> Just for future as a cheat sheet:)
+> Right now I'm using the Django built-in admin site for convenience
+> It's because if I'm building my own, it's going to be thousands of extra lins of code
+> and mostly it;s going to be functionally homogeneous to the built-in one
+
+* Add `'django.contrib.admin',` to `INSTALLED_APPS`
+* Add `path('admin/', admin.site.urls),` to `mysite/urls.py`
+* Create a superuser by `python manage.py createsuperuser`
+* Delete a superuser by:
+  - ```
+    > django-admin.py shell
+    $ from django.contrib.auth.models import User
+    $ User.objects.get(username="joebloggs", is_superuser=True).delete()
+    ```
+
+
+<a id="deploy"></a>
 ## Deployment
 
 
