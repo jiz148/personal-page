@@ -85,7 +85,8 @@
 
 * [reference](https://www.cnblogs.com/harryTree/p/11865900.html)
 * Config `MEDIA_ROOT = os.path.join( BASE_DIR  ,  "media"  )`
-* In `mysite/url.py`, puste `urlpatterns += re_path(r"^media/(?P<path>.*)/", serve, {"document_root": settings.MEDIA_ROOT})`
+* In `mysite/url.py`, put `urlpatterns.append(re_path(r"^media/(?P<path>.*)/", serve, {"document_root": settings.MEDIA_ROOT}))`
+* Add `media/` to `.gitignore`
 
 
 <a id="front"></a>
