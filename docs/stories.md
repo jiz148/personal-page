@@ -219,11 +219,7 @@
 * [django document](https://docs.djangoproject.com/en/3.1/topics/auth/default/)
 * Create [account/templates/registration/login.html](../account/templates/registration/login.html)
 * Should add [csrf token](https://docs.djangoproject.com/en/3.0/ref/csrf/) in each form
-
-
-### User Logout Template
-
-* 
+* Should add create account botton
 
 
 <a id="home-page"></a>
