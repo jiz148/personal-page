@@ -19,7 +19,7 @@
 <!-- Page Content -->
 <div class="container" id="registration-container">
     <h1>Login</h1>
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'account:login' %}">
         {% csrf_token %}
         {{ form|crispy }}
         <input type="submit" value="login">
@@ -27,7 +27,5 @@
     </form>
 </div>
 
-{# Assumes you setup the password_reset view in your URLconf #}
-<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 
 {% endblock %}

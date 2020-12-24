@@ -23,11 +23,12 @@
     - [Base Page](#base-page)
         - [Build Ajax](#ajax)
   - [Authentication System Front-end](#auth-front)
+    - [User Sign-up Front-end](#sign-up-front)
   - [Create Home Page](#home-page)
   - [Create Blog Templates](#blog-templates)
 * [Back-end](#back)
   - [Authentication System Back-end](#auth-back)
-  - [User Sign-up Back-end](#sign-up-back)
+    - [User Sign-up Back-end](#sign-up-back)
   - [Home Page Back-end](#home-back)
   - [Blog Back-end](#blog-back)
     - [Create Blog Model](#blog-models)
@@ -199,11 +200,22 @@
 
 > The authentication system view will be created automatically by Django \
 > since I'm using the Django built-in authentication 
+> Already created account app in back-end
 
 * Extends Base Page
 * [django document](https://docs.djangoproject.com/en/3.1/topics/auth/default/)
-* Create [home/templates/registration/login.html](../home/templates/registration/login.html)
+* Create [account/templates/registration/login.html](../account/templates/registration/login.html)
 * Should add [csrf token](https://docs.djangoproject.com/en/3.0/ref/csrf/) in each form
+
+
+<a id="sign-up-front"></a>
+#### User Sign-up Front-end
+
+
+#### Account Templates
+
+* create [account/templates/registration/signup.html](../account/templates/registration/signup.html)
+* extends `base_page.html`
 
 
 <a id="home-page"></a>
@@ -271,25 +283,33 @@
     ```
 
 
+#### Start Account App
+
+* `python manage.py startapp account`
+* Include account in `mysite/urls.py` and `INSTALLED_APP`
+* Include SignUp in [account/urls.py](../account/urls.py)
+
+
 #### Add Authentication Back-end Features
 
 > I'm using the Django built in authentication system as well since A complete, safe authentication is 
 > very time-consuming to build, and the Django authentication system is right now capable of fulfilling my needs
   
-* Add authentication url to [mysite/url.py](../mysite/urls.py)
+* Add authentication urls to [account/url.py](../account/urls.py)
 
 
 <a id="sign-up-back"></a>
-### User Sign-up Back-end
+#### User Sign-up Back-end
 
 > Somehow the Django Built-in system does't support a sign-up page \
 > Therefore I'm building my own by creating an account app
 > [reference](https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html)
 
-#### Start Account App
 
-* `python manage.py startapp account`
-* include account in `mysite/urls.py` and `INSTALLED_APP`
+### Account Views
+
+* Import the built-in `UserCreationForm`
+* Should have class SignUp
 
 
 <a id="home-back"></a>
