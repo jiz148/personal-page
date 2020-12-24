@@ -202,20 +202,28 @@
 > since I'm using the Django built-in authentication 
 > Already created account app in back-end
 
+
+<a id="sign-up-front"></a>
+#### User Sign-up Front-end
+
+
+* Create [account/templates/registration/signup.html](../account/templates/registration/signup.html)
+* Extends `base_page.html`
+* Loop through the fields in the form provided by back end
+* Display error in red each loop
+
+
+#### User Login Template
+
 * Extends Base Page
 * [django document](https://docs.djangoproject.com/en/3.1/topics/auth/default/)
 * Create [account/templates/registration/login.html](../account/templates/registration/login.html)
 * Should add [csrf token](https://docs.djangoproject.com/en/3.0/ref/csrf/) in each form
 
 
-<a id="sign-up-front"></a>
-#### User Sign-up Front-end
+### User Logout Template
 
-
-#### Account Templates
-
-* create [account/templates/registration/signup.html](../account/templates/registration/signup.html)
-* extends `base_page.html`
+* 
 
 
 <a id="home-page"></a>
