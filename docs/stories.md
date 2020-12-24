@@ -14,6 +14,7 @@
     - [Static Files](#static)
     - [Media Files](#media)
 * [Front-end](#front)
+  - [Add Crispy Forms](#crispy)
   - [Config App Settings](#config-a)
   - [Config Template Settings](#config-t)
   - [Download Bootstrap and jQuery to Local](#b-and-j)
@@ -21,9 +22,12 @@
     - [Base Bootstrap](#base-boostrap)
     - [Base Page](#base-page)
         - [Build Ajax](#ajax)
+  - [Authentication System Front-end](#auth-front)
   - [Create Home Page](#home-page)
   - [Create Blog Templates](#blog-templates)
 * [Back-end](#back)
+  - [Authentication System Back-end](#auth-back)
+  - [User Sign-up Back-end](#sign-up-back)
   - [Home Page Back-end](#home-back)
   - [Blog Back-end](#blog-back)
     - [Create Blog Model](#blog-models)
@@ -95,6 +99,17 @@
 
 <a id="front"></a>
 ## Front-end
+
+
+<a id="crispy"></a>
+### Add Crispy Forms 
+
+> Just for better forms
+
+* `pip install django-crispy-forms`
+* `pip freeze > requirments.txt`
+* add `'crispy_forms',` in `INSTALLED_APPS`
+* add `CRISPY_TEMPLATE_PACK = 'bootstrap4'` to settings
 
 
 <a id="config-t"></a>
@@ -179,6 +194,18 @@
 * [base.js](../home/templates/base_static/base_js/base.js)
 
 
+<a id="auth-front"></a>
+### Authentication System Front-end
+
+> The authentication system view will be created automatically by Django \
+> since I'm using the Django built-in authentication 
+
+* Extends Base Page
+* [django document](https://docs.djangoproject.com/en/3.1/topics/auth/default/)
+* Create [home/templates/registration/login.html](../home/templates/registration/login.html)
+* Should add [csrf token](https://docs.djangoproject.com/en/3.0/ref/csrf/) in each form
+
+
 <a id="home-page"></a>
 ### Create Home Page
 
@@ -223,6 +250,48 @@
 ## Back-end
 
 
+<a id="auth-back"></a>
+### Authentication System Back-end
+
+
+#### About Superuser
+
+> Right now I'm using the Django built-in admin site for convenience
+> It's because if I'm building my own, it's going to be thousands of extra lins of code
+> and mostly it;s going to be functionally homogeneous to the built-in one
+
+* Add `'django.contrib.admin',` to `INSTALLED_APPS`
+* Add `path('admin/', admin.site.urls),` to `mysite/urls.py`
+* Create a superuser by `python manage.py createsuperuser`
+* Delete a superuser by:
+  - ```
+    > django-admin.py shell
+    $ from django.contrib.auth.models import User
+    $ User.objects.get(username="joebloggs", is_superuser=True).delete()
+    ```
+
+
+#### Add Authentication Back-end Features
+
+> I'm using the Django built in authentication system as well since A complete, safe authentication is 
+> very time-consuming to build, and the Django authentication system is right now capable of fulfilling my needs
+  
+* Add authentication url to [mysite/url.py](../mysite/urls.py)
+
+
+<a id="sign-up-back"></a>
+### User Sign-up Back-end
+
+> Somehow the Django Built-in system does't support a sign-up page \
+> Therefore I'm building my own by creating an account app
+> [reference](https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html)
+
+#### Start Account App
+
+* `python manage.py startapp account`
+* include account in `mysite/urls.py` and `INSTALLED_APP`
+
+
 <a id="home-back"></a>
 ### Home Page Back-end
 
@@ -264,24 +333,6 @@
 * Should include a base url
 * `app_name` blog
 * Should include blog urls in `mysite/urls.py`, like `path('blog', include('blog.urls')),`
-
-
-#### About Superuser
-
-> Just for future as a cheat sheet:)
-> Right now I'm using the Django built-in admin site for convenience
-> It's because if I'm building my own, it's going to be thousands of extra lins of code
-> and mostly it;s going to be functionally homogeneous to the built-in one
-
-* Add `'django.contrib.admin',` to `INSTALLED_APPS`
-* Add `path('admin/', admin.site.urls),` to `mysite/urls.py`
-* Create a superuser by `python manage.py createsuperuser`
-* Delete a superuser by:
-  - ```
-    > django-admin.py shell
-    $ from django.contrib.auth.models import User
-    $ User.objects.get(username="joebloggs", is_superuser=True).delete()
-    ```
 
 
 <a id="deploy"></a>

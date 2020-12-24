@@ -8,6 +8,9 @@ $(document).ready(function () {
         });
     };
 
-    ajax.generateContent(home_url)
+    // generate main-content if location is main page when page is loaded
+    if (window.location.pathname === '/') {
+        ajax.generateContent(home_url, '#main-content');
+    }
     window.$ajax = ajax;
 });

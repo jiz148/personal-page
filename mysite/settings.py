@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,10 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # add-ons
+    'crispy_forms',
     # built apps,
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
 ]
+
+# When we get to crispy forms :)
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -130,6 +136,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'utils/utils_static/'),
     os.path.join(BASE_DIR, 'home/templates/base_static/'),
+    os.path.join(BASE_DIR, 'home/templates/registration/registration_static/'),
     os.path.join(BASE_DIR, 'home/templates/home/home_static/'),
     os.path.join(BASE_DIR, 'blog/templates/blog_base_static/'),
 )
@@ -139,4 +146,10 @@ STATIC_ROOT = 'static'
 
 # Media files
 
-MEDIA_ROOT = os.path.join( BASE_DIR  ,  "media"  )
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Registrations
+# https://docs.djangoproject.com/en/3.1/topics/auth/default/
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
