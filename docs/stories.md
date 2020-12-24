@@ -301,9 +301,25 @@
 <a id="sign-up-back"></a>
 #### User Sign-up Back-end
 
-> Somehow the Django Built-in system does't support a sign-up page \
+> Somehow the Django Built-in system doesn't support a sign-up page \
 > Therefore I'm building my own by creating an account app
 > [reference](https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html)
+
+
+### Profile Model
+
+> Creating for using profile gives more flexibility to future functionalities \
+> I'm doing this by extends User model with OneToOneField \
+> [reference](https://simpleisbetterthancomplex.com/tutorial/2016/07/22/how-to-extend-django-user-model.html)
+
+* [models.py](../account/models.py)
+* Import User model and `post_save` and a `receiver` dispatch
+
+
+### Account Form
+
+* [forms.py](../account/forms.py)
+* Customize the form in `forms.py` by creating `SignUpForm`
 
 
 ### Account Views
