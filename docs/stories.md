@@ -286,6 +286,12 @@
 * Each Should have form for comments (should only display after user login)
 
 
+#### Create Article Form Template
+
+* In [blog/article_form.html](../blog/templates/blog/article_form.html)
+* Display form to create and update an Article
+
+
 <a id="back"></a>
 ## Back-end
 
@@ -382,6 +388,16 @@
 * `python manage.py makemigrations`, `python manage.py migrate`
 
 
+##### Limit the File Uploaded
+
+
+[reference](https://zhuanlan.zhihu.com/p/79289488)
+* Add [blog/fields.py](../blog/fields.py)
+* Override `FileField` with extra arguments `content_types` and `max_upload_size`, and the clean method
+* Use it in the model
+* How to upload multiple files
+
+
 <a id="blog-views"></a>
 #### Create Blog Views
 
@@ -389,6 +405,7 @@
 * Should have [owners.py](../blog/owners.py) to override generic views
 * Should include `BlogBaseView`,`ArticleListView`, `CategoryDetailView`, `ArticleDetailView`
 * Here the `CategoryDetailView` is for list every article within that category
+* Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
 
 
 <a id="blog-urls"></a>
@@ -398,8 +415,8 @@
 * Should include a base url
 * `app_name` blog
 * Should include blog urls in `mysite/urls.py`, like `path('blog', include('blog.urls')),`
-* Should include `base`, `article_list` 
-* Should include `category_detail`, `article_detail` with `pk` as a parameter
+* Should include `base`, `article_list`, `article_create`
+* Should include `category_detail`, `article_detail`, `article_update`, `article_delete` with `pk` as a parameter
 
 
 <a id="deploy"></a>

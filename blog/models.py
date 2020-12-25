@@ -2,6 +2,8 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.conf import settings
 
+from .fields import RestrictedFileField
+
 
 # Create your models here.
 class Category(models.Model):
@@ -26,7 +28,18 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # medias
-    picture = models.FileField(upload_to="article_pic")
+    picture = RestrictedFileField(
+        upload_to="article_pic",
+        content_types=
+        [
+            'image/jpeg',
+            'image/gif',
+            'image/png',
+            'image/bmp',
+            'image/tiff'
+        ],
+        max_upload_size=10485760,
+    )
 
     # foreign keys
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
