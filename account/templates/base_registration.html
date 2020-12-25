@@ -1,0 +1,40 @@
+<!--base registration template for authentication pages-->
+{% extends "base_bootstrap.html" %}
+{% load static %}
+
+<!--navbar-->
+{% block navbar %}
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand" href="/">{{ settings.APP_NAME }}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">To Main Page<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+{% block header %}
+<div class="select2-container--open">
+  <img src="{% static 'base_images/cyber-punk.jpg' %}" alt="cyber-punk-image" width="100%">
+</div>
+{% endblock %}
+<!--content-->
+{% block content %}
+{% endblock %}
+<!--footer-->
+{% block footer %}
+<footer class="container">
+  <p class="float-right"><a href="#">Back to top</a></p>
+  <p>
+    &copy; Jinchi Z &middot;
+    <a href="https://github.com/jiz148" target="_blank">Github</a> &middot;
+    <a href="https://www.linkedin.com/in/Jinchi-Zhang/" target="_blank">LinkedIn</a> &middot;
+    <a href="https://github.com/jiz148/personal-page/blob/master/docs/stories.md" target="_blank">Page Creating Repo and Stories</a>
+  </p>
+</footer>
+{% endblock %}

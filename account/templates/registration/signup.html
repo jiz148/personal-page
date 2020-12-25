@@ -1,7 +1,8 @@
-{% extends 'base_page.html' %}
+{% extends 'base_registration.html' %}
 
 {% block content %}
   <h2>Sign Up</h2>
+  <a href="{% url 'account:login' %}"><small style="color: dimgray">Already has a account? Login here.</small></a>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
