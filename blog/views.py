@@ -22,7 +22,7 @@ class ArticleListView(OwnerListView):
         return super().get_queryset()[:10]
 
 
-class CategoryDetailView(View):
+class CategoryDetailView(OwnerDetailView):
     model = Category
 
 
