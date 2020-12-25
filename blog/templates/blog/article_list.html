@@ -2,12 +2,19 @@
     {% for article in article_list %}
     <div class="row">
         <div class="col-md-12 col-xs-12">
-            <h2>{{ article.title }}<span class="text-muted small"> {{ article.category }}</span></h2>
+            <h2>
+                {{ article.title }}
+                <a href="#" onclick="$ajax.generateContent('{% url "blog:category_detail" article.category.id %}', '#blog-content');return false;">
+                <small class="text-muted">
+                    {{ article.category.name }}
+                </small>
+                </a>
+            </h2>
             <p>Author: {{ article.owner }}</p>
             <p><small style="color: dimgrey">updated at: {{ article.updated_at }}</small></p>
             <div class="wrapper">
                 <p style="margin:5px">{{ article.text|slice:":100" }} ...</p>
-                <button type="button" class="btn btn-secondary" style="float:right;margin-right:20px">Read More</button>
+                <button type="button" class="btn btn-secondary" style="float:right;margin-right:20px" onclick="$ajax.generateContent('{% url "blog:article_detail" article.id %}', '#blog-content');return false;">Read More</button>
             </div>
             <hr>
         </div>

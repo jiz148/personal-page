@@ -73,6 +73,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',  # added
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # added
@@ -146,7 +147,8 @@ STATIC_ROOT = 'static'
 
 # Media files
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Registrations
 # https://docs.djangoproject.com/en/3.1/topics/auth/default/

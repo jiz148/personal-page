@@ -93,9 +93,12 @@
 #### Media Files
 
 * [reference](https://www.cnblogs.com/harryTree/p/11865900.html)
+* [reference for url](https://stackoverflow.com/questions/36280056/page-not-found-404-django-media-files)
 * Config `MEDIA_ROOT = os.path.join( BASE_DIR  ,  "media"  )`
-* In `mysite/url.py`, put `urlpatterns.append(re_path(r"^media/(?P<path>.*)/", serve, {"document_root": settings.MEDIA_ROOT}))`
+* Config `MEDIA_URL = '/media/`
+* In `mysite/url.py`, put `urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
 * Add `media/` to `.gitignore`
+* Add `'django.template.context_processors.media',` to `TEMPLATE`
 
 
 <a id="front"></a>
@@ -265,12 +268,22 @@
 #### Create Category Detail Template
 
 * In [blog/category_detail.html](../blog/templates/blog/category_detail.html), list each article within that category
-* Loads the `article_set.values` given by the `catetory`
+* Loads the `article_set.all` given by the `catetory`
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
 * Should display fields: owner, updated_at, category
 * Should have choice of adding and removing to favorites by a star button
 * Should have choice of updating and deleting for the owners
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
+
+
+#### Create Article Detail Template
+
+* In [blog/article_detail.html](../blog/templates/blog/article_detail.html), display details of the article
+* Should include title, text, picture on the side 
+* Should display created_at, updated_at, category
+* Should have choice of adding and removing to favorites by a star button
+* Should have choice of updating and deleting for the owners
+* Each Should have form for comments (should only display after user login)
 
 
 <a id="back"></a>
@@ -374,7 +387,7 @@
 
 * [views.py](../blog/views.py)
 * Should have [owners.py](../blog/owners.py) to override generic views
-* Should include `BlogBaseView`,`ArticleListView`, `CategoryDetailView`
+* Should include `BlogBaseView`,`ArticleListView`, `CategoryDetailView`, `ArticleDetailView`
 * Here the `CategoryDetailView` is for list every article within that category
 
 
@@ -385,6 +398,8 @@
 * Should include a base url
 * `app_name` blog
 * Should include blog urls in `mysite/urls.py`, like `path('blog', include('blog.urls')),`
+* Should include `base`, `article_list` 
+* Should include `category_detail`, `article_detail` with `pk` as a parameter
 
 
 <a id="deploy"></a>

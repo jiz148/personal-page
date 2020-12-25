@@ -20,3 +20,6 @@ class ArticleListView(OwnerListView):
 class CategoryDetailView(OwnerDetailView):
     model = Category
 
+
+class ArticleDetailView(OwnerDetailView):
+    model = Article
