@@ -288,8 +288,12 @@
 
 #### Create Article Form Template
 
+> Since I'm building a one-page application, I'm using jQuery ajax to send post request \
+> instead of using the default submit
+
 * In [blog/article_form.html](../blog/templates/blog/article_form.html)
 * Display form to create and update an Article
+* In [blog_base.js](../blog/templates/blog_base_static/blog_base_js/blog_base.js), implement ajax post method using jQuery
 
 
 <a id="back"></a>
@@ -406,6 +410,7 @@
 * Should include `BlogBaseView`,`ArticleListView`, `CategoryDetailView`, `ArticleDetailView`
 * Here the `CategoryDetailView` is for list every article within that category
 * Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
+* For `ArticleCreate`, `ArticleUpdate` views, in [owners.py](../blog/owners.py), override the generic views to save owners, and `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
 
 
 <a id="blog-urls"></a>

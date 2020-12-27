@@ -21,6 +21,22 @@
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+    <ul class="nav navbar-nav navbar-right">
+      {% if user.is_authenticated %}
+      <li class="dropdown">
+        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+          <img style="width: 25px;" src=""/><b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="{% url 'account:logout' %}">Logout</a></li>
+        </ul>
+      </li>
+      {% else %}
+      <li>
+        <a href="{% url 'account:login' %}">Login</a>
+      </li>
+      {% endif %}
+    </ul>
   </div>
 </nav>
 {% endblock %}

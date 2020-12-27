@@ -33,7 +33,7 @@ class ArticleDetailView(OwnerDetailView):
 class ArticleCreateView(OwnerCreateView):
     fields = ['title', 'text', 'category', 'picture']
     model = Article
-    success_url = reverse_lazy('blog:base')
+    success_url = reverse_lazy('home:base')
 
 
 class ArticleUpdateView(OwnerUpdateView):

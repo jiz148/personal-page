@@ -39,6 +39,7 @@ class Article(models.Model):
             'image/tiff'
         ],
         max_upload_size=10485760,
+        null=True,
     )
 
     # foreign keys
