@@ -28,35 +28,36 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # medias
-    picture = RestrictedFileField(
-        upload_to="article_pic",
-        content_types=
-        [
-            'image/jpeg',
-            'image/gif',
-            'image/png',
-            'image/bmp',
-            'image/tiff'
-        ],
-        max_upload_size=10485760,
-        null=True,
-    )
+    # picture = RestrictedFileField(
+    #     upload_to="article_pic",
+    #     content_types=
+    #     [
+    #         'image/jpeg',
+    #         'image/gif',
+    #         'image/png',
+    #         'image/bmp',
+    #         'image/tiff'
+    #     ],
+    #     max_upload_size=10485760,
+    #     null=True,
+    # )
+    picture = models.FileField(upload_to="article_pic")
 
-    # foreign keys
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # # foreign keys
+    # owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
-    # Many-to-many Fields
-    favorites = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        through='Favorite',
-        related_name='favorite_article'
-    )
-    comments = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-        through='Comment',
-        related_name='comment_owned'
-    )
+    #
+    # # Many-to-many Fields
+    # favorites = models.ManyToManyField(
+    #     settings.AUTH_USER_MODEL,
+    #     through='Favorite',
+    #     related_name='favorite_article'
+    # )
+    # comments = models.ManyToManyField(
+    #     settings.AUTH_USER_MODEL,
+    #     through='Comment',
+    #     related_name='comment_owned'
+    # )
 
     # Shows up in the admin list
     def __str__(self):
