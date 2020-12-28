@@ -22,7 +22,7 @@
         formData.append(item.name, item.value);
       });
 
-      formData.append('file', $('#id_{{ form.upload_field_name }}')[0].files[0]);
+      formData.append('picture', $('#id_{{ form.upload_field_name }}')[0].files[0]);
 
       $.ajax({
         data: formData,
