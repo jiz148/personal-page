@@ -8,6 +8,7 @@
   <input type="submit" value="Cancel" onclick="$ajax.generateContent('{% url "blog:base" %}', '#main-content')"; return false;">
 </form>
 </p>
+
 <script type="text/javascript">
   $(document).ready(function(){
 
@@ -17,12 +18,11 @@
       event.preventDefault();
 
       let formData = new FormData();
-      console.log($(this)[0])
       $(this).serializeArray().forEach(function (item) {
         formData.append(item.name, item.value);
       });
 
-      formData.append('picture', $('#id_{{ form.upload_field_name }}')[0].files[0]);
+      formData.append('{{ form.upload_field_name }}', $('#id_{{ form.upload_field_name }}')[0].files[0]);
 
       $.ajax({
         data: formData,
@@ -32,8 +32,8 @@
         contentType: false,
         cache: false,
         success: function (res) {
-          console.log(res);
-          $ajax.generateContent(res['success_url'], "#blog-content");
+          // when success, generate the responded html to blog-content
+          $("#blog-content").html(res)
         }
       })
     });

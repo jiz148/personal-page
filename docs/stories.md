@@ -267,7 +267,7 @@
 
 #### Create Category Detail Template
 
-* In [blog/category_detail.html](../blog/templates/blog/category_detail.html), list each article within that category
+* In [blog/category_detail.html](../blog/templates/blog/article_category_list.html), list each article within that category
 * Loads the `article_set.all` given by the `catetory`
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
 * Should display fields: owner, updated_at, category
@@ -294,6 +294,12 @@
 * In [blog/article_form.html](../blog/templates/blog/article_form.html)
 * Display form to create and update an Article
 * In [blog_base.js](../blog/templates/blog_base_static/blog_base_js/blog_base.js), implement ajax post method using jQuery
+* In progress, fixed a bug about uploading file using ajax
+  1. Preventing a form to redirect to new page, `event.preventDefault()` is needed
+  2. FormData is needed for files to be uploaded by ajax, we should use append with FormData
+  3. `processData: false, contentType: false, cache: false,` is need in the `ajax` function of jQuery for uploading files
+  4. `enctype='multipart/form-data'` is needed in the forms with file
+  5. `name` of file appended to the FormData should **match** the name in the form otherwise it won't be recognized by `is_valid` function of the form
 
 
 <a id="back"></a>
@@ -407,8 +413,9 @@
 
 * [views.py](../blog/views.py)
 * Should have [owners.py](../blog/owners.py) to override generic views
-* Should include `BlogBaseView`,`ArticleListView`, `CategoryDetailView`, `ArticleDetailView`
-* Here the `CategoryDetailView` is for list every article within that category
+* Should include `BlogBaseView`,`ArticleListView`, `ArticleCategoryListView`, `ArticleDetailView`
+* 'ArticleListView' Should return the last 10 items of `Article`
+* Here the `CategoryDetailView` is for list every article within that category, ordered by `-updated_at`
 * Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
 * For `ArticleCreate`, `ArticleUpdate` views, in [owners.py](../blog/owners.py), override the generic views to save owners, and `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
 

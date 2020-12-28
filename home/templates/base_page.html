@@ -3,61 +3,61 @@
 
 <!--navbar-->
 {% block navbar %}
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-  <a class="navbar-brand" href="#" onclick="$ajax.generateContent('{% url "home:home" %}', '#main-content')"; return false;">{{ settings.APP_NAME }}</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#" onclick="$ajax.generateContent('{% url "blog:base" %}', '#main-content')"; return false;">Blog</a>
-      </li>
-    </ul>
-    <form class="form-inline mt-2 mt-md-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-    <ul class="nav navbar-nav navbar-right">
-      {% if user.is_authenticated %}
-      <li class="dropdown">
-        <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-          <img style="width: 25px;" src=""/><b class="caret"></b>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="{% url 'account:logout' %}">Logout</a></li>
-        </ul>
-      </li>
-      {% else %}
-      <li>
-        <a href="{% url 'account:login' %}">Login</a>
-      </li>
-      {% endif %}
-    </ul>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#" onclick="$ajax.generateContent('{% url "home:home" %}', '#main-content')"; return false;">{{ settings.APP_NAME }}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" onclick="$ajax.generateContent('{% url "home:home" %}', '#main-content')"; return false;">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" onclick="$ajax.generateContent('{% url "blog:base" %}', '#main-content')"; return false;">Blog</a>
+                </li>
+                <li>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search in Blog..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+            {% if user.is_authenticated %}
+                <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        <img style="width: 25px;" src=""/><b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{% url 'account:logout' %}">Logout</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'account:login' %}">Login</a>
+                </li>
+            {% endif %}
+        </div>
+    </nav>
 {% endblock %}
 {% block header %}
-<div class="select2-container--open">
-  <img src="{% static 'base_images/cyber-punk.jpg' %}" alt="cyber-punk-image" width="100%">
-</div>
+    <div class="select2-container--open">
+        <img src="{% static 'base_images/cyber-punk.jpg' %}" alt="cyber-punk-image" width="100%">
+    </div>
 {% endblock %}
 <!--content-->
 {% block content %}
-<main id="main-content"></main>
+    <main id="main-content"></main>
 {% endblock %}
 <!--footer-->
 {% block footer %}
-<footer class="container">
-  <p class="float-right"><a href="#">Back to top</a></p>
-  <p>
-    &copy; Jinchi Z &middot;
-    <a href="https://github.com/jiz148" target="_blank">Github</a> &middot;
-    <a href="https://www.linkedin.com/in/Jinchi-Zhang/" target="_blank">LinkedIn</a> &middot;
-    <a href="https://github.com/jiz148/personal-page/blob/master/docs/stories.md" target="_blank">Page Creating Repo and Stories</a>
-  </p>
-</footer>
+    <footer class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>
+            &copy; Jinchi Z &middot;
+            <a href="https://github.com/jiz148" target="_blank">Github</a> &middot;
+            <a href="https://www.linkedin.com/in/Jinchi-Zhang/" target="_blank">LinkedIn</a> &middot;
+            <a href="https://github.com/jiz148/personal-page/blob/master/docs/stories.md" target="_blank">Page Creating Repo and Stories</a>
+        </p>
+    </footer>
 {% endblock %}

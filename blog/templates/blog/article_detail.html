@@ -12,9 +12,11 @@
     }
 </style>
 {% endblock %}
+{% if article.picture %}
 <div id="overlay" class="overlay" style="text-align: center;" onclick="document.getElementById('overlay').style.display = 'none';">
     <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 90%;max-height:90%;margin-top: 50px;border: 3px solid black;">
 </div>
+{% endif %}
 <span style="float: right;">
 ({{ article.updated_at }}) <!-- probably use naturaltime later -->
 {% comment %}
@@ -26,15 +28,17 @@
 </span>
 <h1>
     {{ article.title }}
-    <a href="#" onclick="$ajax.generateContent('{% url "blog:category_detail" article.category.id %}', '#blog-content');return false;">
+    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_category_list" article.category.id %}', '#blog-content');return false;">
     <small class="text-muted">
         {{ article.category.name }}
     </small>
     </a>
 </h1>
 <h2 class="text-muted">Author: {{ article.owner }}</h2>
+{% if article.picture %}
 <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 40%;max-height: 40%;"
      onclick="document.getElementById('overlay').style.display = 'block'";>
+{% endif %}
 <p>
     {{ article.text }}
 </p>

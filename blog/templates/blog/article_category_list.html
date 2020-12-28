@@ -2,7 +2,10 @@
     {% for article in page_obj %}
         <div class="row">
             <div class="col-md-12 col-xs-12">
-                <h2>{{ article.title }}<span class="text-muted small"> {{ article.category }}</span></h2>
+                <h2>
+                    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_detail" article.id %}', '#blog-content');return false;" style="text-decoration: none;color: black;">{{ article.title }}</a>
+                    <span class="text-muted small"> {{ article.category }}</span>
+                </h2>
                 <p>Author: {{ article.owner }}</p>
                 <p><small style="color: dimgrey">updated at: {{ article.updated_at }}</small></p>
                 <div class="wrapper">
@@ -16,8 +19,8 @@
     <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            <a name="page-btn" href="?page=1">&laquo; first</a>
+            <a name="page-btn" href="?page={{ page_obj.previous_page_number }}" id="previous-page">previous</a>
         {% endif %}
 
         <span class="current">
@@ -25,9 +28,31 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            <a name="page-btn" href="?page={{ page_obj.next_page_number }}">next</a>
+            <a name="page-btn" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        function goToPage(page) {
+            $.ajax({
+                type: 'GET',
+                url: '{% url 'blog:article_category_list' page_obj.0.category.id %}',  // get category id for url
+                data: {page: page},
+                success: function (res) {
+                    // generate the responded html to blog-content
+                    $('#blog-content').html(res);
+                },
+            });
+        }
+        // select every page button
+        $('a[name="page-btn"]').click(function (event) {
+            // prevent the tag from jumping to href
+            event.preventDefault();
+            // use re to get the page number
+            goToPage($(this).attr('href').match(/\d+/)[0]);
+        });
+    });
+</script>
