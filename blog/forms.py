@@ -1,13 +1,18 @@
 from django import forms
 
 from .models import Article
+from .humanize import naturalsize
 
 
 # Create the form class.
 class ArticleForm(forms.ModelForm):
 
     # picture
+
     upload_field_name = 'picture'
+    # get max_upload_size from picture field
+    max_upload_size = Article._meta.get_field('picture').max_upload_size
+    max_upload_size_natural = naturalsize(max_upload_size)
 
     class Meta:
         model = Article

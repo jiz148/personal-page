@@ -37,24 +37,24 @@
 </h2>
 {% if article.picture %}
     <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 40%;max-height: 40%;"
-         onclick="document.getElementById('overlay').style.display = 'block'";>
+         onclick="document.getElementById('overlay').style.display = 'block'"; alt="article picture">
 {% endif %}
 <p>
     {{ article.text }}
 </p>
-{% comment %}
 {% if user.is_authenticated %}
-<br clear="all"/>
-<p>
-    {% load crispy_forms_tags %}
-<form method="post" action="{% url 'blog:article_comment_create' article.id %}">
-    {% csrf_token %}
-    {{ comment_form|crispy }}
-    <input type="submit" value="Submit">
-    <input type="submit" value="Cancel" onclick="window.location.href='{% url 'blog:all' %}';return false;">
-</form>
-</p>
+    <br clear="all"/>
+    <p>
+        {% load crispy_forms_tags %}
+    <form method="post" action="{% url 'blog:article_comment_create' article.id %}">
+        {% csrf_token %}
+        {{ comment_form|crispy }}
+        <input type="submit" value="Submit">
+        <input type="submit" value="Cancel" onclick="window.location.href='{% url 'blog:all' %}';return false;">
+    </form>
+    </p>
 {% endif %}
+{% comment %}
 {% for comment in comments %}
 <p> {{ comment.text }}
     ({{ comment.updated_at|naturaltime }})

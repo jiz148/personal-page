@@ -2,54 +2,52 @@
 
 <p>
 <form id="article-form" method="post" action="{{ form_action }}" enctype='multipart/form-data'>
-  {% csrf_token %}
-  {{ form|crispy }}
-  <input type = "submit" value="Submit" id="article-submit">
-  <input type="submit" value="Cancel" onclick="$ajax.generateContent('{% url "blog:base" %}', '#main-content')"; return false;">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type = "submit" value="Submit" id="article-submit">
+    <input type="submit" value="Cancel" onclick="$ajax.generateContent('{% url "blog:base" %}', '#main-content')"; return false;">
 </form>
 </p>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+    $(document).ready(function(){
 
-    $("#article-form").submit(function (event) {
+        $("#article-form").submit(function (event) {
 
-      // prevent the default event of forms
-      event.preventDefault();
+            // prevent the default event of forms
+            event.preventDefault();
+            let file = $('#id_{{ form.upload_field_name }}')[0].files[0];
 
-      let formData = new FormData();
-      $(this).serializeArray().forEach(function (item) {
-        formData.append(item.name, item.value);
-      });
+            // Check File Size
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
 
-      formData.append('{{ form.upload_field_name }}', $('#id_{{ form.upload_field_name }}')[0].files[0]);
+                // Check file size
+                if (file && file.size > {{ form.max_upload_size }}) {
+                    console.log('here')
+                    alert("File " + file.name + " of type " + file.type + " must be < {{ form.max_upload_size_natural }}");
+                    return false;
+                }
+            }
 
-      $.ajax({
-        data: formData,
-        type: $(this).attr('method'),
-        url: $(this).attr('action'),
-        processData: false,
-        contentType: false,
-        cache: false,
-        success: function (res) {
-          // when success, generate the responded html to blog-content
-          $("#blog-content").html(res)
-        }
-      })
+            let formData = new FormData();
+            $(this).serializeArray().forEach(function (item) {
+                formData.append(item.name, item.value);
+            });
+
+            formData.append('{{ form.upload_field_name }}', file);
+
+            $.ajax({
+                data: formData,
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (res) {
+                    // when success, generate the responded html to blog-content
+                    $("#blog-content").html(res)
+                }
+            })
+        });
     });
-  });
 </script>
-{% comment %}
-<script>
-  $("#upload_").submit(function () {
-    console.log('Checking file size');
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-      var file = $('#id_{{ form.upload_field_name }}')[0].files[0];
-      if (file && file.size > {{ form.max_upload_size }}) {
-        alert("File " + file.name + " of type " + file.type + " must be < {{ form.max_upload_limit_text }}");
-        return false;
-      }
-    }
-  })
-</script>
-{% endcomment %}
