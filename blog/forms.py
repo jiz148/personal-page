@@ -4,7 +4,7 @@ from .models import Article
 
 
 # Create the form class.
-class CreateForm(forms.ModelForm):
+class ArticleForm(forms.ModelForm):
 
     # picture
     upload_field_name = 'picture'

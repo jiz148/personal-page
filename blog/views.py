@@ -9,7 +9,7 @@ from .owners import \
     OwnerDetailView, \
     OwnerDeleteView
 from .models import Article, Category
-from .forms import CreateForm
+from .forms import ArticleForm
 
 BLOG_BASE_HTML = 'blog_base.html'
 ARTICLE_FORM_HTML = 'blog/article_form.html'
@@ -56,7 +56,7 @@ class ArticleCreateView(LoginRequiredMixin, View):
     form_action = reverse_lazy('blog:article_create')
 
     def get(self, request):
-        form = CreateForm()
+        form = ArticleForm()
         ctx = {
             'form': form,
             'form_action': self.form_action,
@@ -64,7 +64,7 @@ class ArticleCreateView(LoginRequiredMixin, View):
         return render(request, self.template_name, ctx)
 
     def post(self, request):
-        form = CreateForm(request.POST, request.FILES or None)
+        form = ArticleForm(request.POST, request.FILES or None)
         if not form.is_valid():
             ctx = {
                 'form': form,
@@ -92,7 +92,7 @@ class ArticleUpdateView(LoginRequiredMixin, View):
         form_action = reverse_lazy('blog:article_update', kwargs={'pk': pk})
 
         article = get_object_or_404(Article, pk=pk, owner=request.user)
-        form = CreateForm(instance=article)
+        form = ArticleForm(instance=article)
         ctx = {
             'form': form,
             'form_action': form_action,
@@ -104,7 +104,7 @@ class ArticleUpdateView(LoginRequiredMixin, View):
         form_action = reverse_lazy('blog:article_update', kwargs={'pk': pk})
 
         article = get_object_or_404(Article, pk=pk, owner=request.user)
-        form = CreateForm(request.POST, request.FILES or None, instance=article)
+        form = ArticleForm(request.POST, request.FILES or None, instance=article)
 
         if not form.is_valid():
             ctx = {

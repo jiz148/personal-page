@@ -32,6 +32,7 @@
   - [Home Page Back-end](#home-back)
   - [Blog Back-end](#blog-back)
     - [Create Blog Model](#blog-models)
+    - [Create Blog  Forms](#blog-form)
     - [Create Blog Views](#blog-views)
     - [Create Blog Urls](#blog-urls)
 * [Deployment](#deploy)
@@ -416,6 +417,12 @@
 * Override `FileField` with extra arguments `content_types` and `max_upload_size`, and the clean method
 * Use it in the model
 * How to upload multiple files
+
+
+<a id="blog-form"></a>
+#### Create Blog Forms
+
+* In [blog/forms.py](../blog/forms.py), create for `ArticleForm` for Articles and `CommentForm` for Comments
 
 
 <a id="blog-views"></a>
