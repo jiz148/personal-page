@@ -1,41 +1,43 @@
 {% block head %}
-<style>
-    .overlay{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        display: none;
-        background-color: rgba(0,0,0,0.5); /*dim the background*/
-    }
-</style>
+    <style>
+        .overlay{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: none;
+            background-color: rgba(0,0,0,0.5); /*dim the background*/
+        }
+    </style>
 {% endblock %}
 {% if article.picture %}
-<div id="overlay" class="overlay" style="text-align: center;" onclick="document.getElementById('overlay').style.display = 'none';">
-    <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 90%;max-height:90%;margin-top: 50px;border: 3px solid black;">
-</div>
+    <div id="overlay" class="overlay" style="text-align: center;" onclick="document.getElementById('overlay').style.display = 'none';">
+        <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 90%;max-height:90%;margin-top: 50px;border: 3px solid black;">
+    </div>
 {% endif %}
 <span style="float: right;">
 ({{ article.updated_at }}) <!-- probably use naturaltime later -->
-{% if article.owner == user %}
-<a href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a>
-<a href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a>
-{% endif %}
 </span>
 <h1>
     {{ article.title }}
     <a href="#" onclick="$ajax.generateContent('{% url "blog:article_category_list" article.category.id %}', '#blog-content');return false;">
-    <small class="text-muted">
-        {{ article.category.name }}
-    </small>
+        <small class="text-muted">
+            {{ article.category.name }}
+        </small>
     </a>
 </h1>
-<h2 class="text-muted">Author: {{ article.owner }}</h2>
+<h2 class="text-muted">
+    Author: {{ article.owner }}
+    {% if article.owner == user %}
+        ( <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a> |
+        <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a> )
+    {% endif %}
+</h2>
 {% if article.picture %}
-<img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 40%;max-height: 40%;"
-     onclick="document.getElementById('overlay').style.display = 'block'";>
+    <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 40%;max-height: 40%;"
+         onclick="document.getElementById('overlay').style.display = 'block'";>
 {% endif %}
 <p>
     {{ article.text }}

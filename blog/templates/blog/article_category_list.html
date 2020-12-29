@@ -6,7 +6,13 @@
                     <a href="#" onclick="$ajax.generateContent('{% url "blog:article_detail" article.id %}', '#blog-content');return false;" style="text-decoration: none;color: black;">{{ article.title }}</a>
                     <span class="text-muted small"> {{ article.category }}</span>
                 </h2>
-                <p>Author: {{ article.owner }}</p>
+                <p>
+                    Author: {{ article.owner }}
+                    {% if article.owner == user %}
+                        ( <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a> |
+                        <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a> )
+                    {% endif %}
+                </p>
                 <p><small style="color: dimgrey">updated at: {{ article.updated_at }}</small></p>
                 <div class="wrapper">
                     <p style="margin:5px">{{ article.text|slice:":100" }} ...</p>
