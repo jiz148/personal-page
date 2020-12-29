@@ -21,9 +21,7 @@
 ({{ article.updated_at }}) <!-- probably use naturaltime later -->
 {% if article.owner == user %}
 <a href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a>
-{% comment %}
-<a href="{% url 'blog:article_delete' article.id %}"></a>
-{% endcomment %}
+<a href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a>
 {% endif %}
 </span>
 <h1>

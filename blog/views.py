@@ -124,3 +124,4 @@ class ArticleUpdateView(LoginRequiredMixin, View):
 
 class ArticleDeleteView(OwnerDeleteView):
     model = Article
+    success_url = reverse_lazy('blog:article_list')

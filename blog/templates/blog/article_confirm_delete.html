@@ -1,0 +1,27 @@
+<h1>Delete Article</h1>
+
+<p>Are you sure you want to delete the article: {{ article }}?</p>
+
+<form id="article-delete-form" action="{% url 'blog:article_delete' article.id %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Yes, delete.">
+</form>
+
+<script>
+    $(document).ready(function (){
+        $('#article-delete-form').submit(function (event){
+
+            // prevent the form from automatically jump to the success url
+            event.preventDefault();
+
+            $.ajax({
+               method: $(this).attr('method'),
+               url: $(this).attr('action'),
+               data: $(this).serialize(),
+               success: function (res) {
+                   $('#blog-content').html(res);
+               },
+            });
+        })
+    });
+</script>

@@ -305,6 +305,13 @@
   5. `name` of file appended to the FormData should **match** the name in the form otherwise it won't be recognized by `is_valid` function of the form
 
 
+#### Create Article Confirm Delete Template
+
+* [blog/article_confirm_delete.html](../blog/templates/blog/article_confirm_delete.html)
+* The template receives a form from back-end
+* The template should use ajax to send post
+
+
 <a id="back"></a>
 ## Back-end
 
@@ -421,10 +428,11 @@
 * Here the `CategoryDetailView` is for list every article within that category, ordered by `-updated_at`
 * Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
 * For `ArticleCreate`, `ArticleUpdate` views, use `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
-* For ajax purposes `ArticleCreate` and `ArticleUpdate` views should use View class to feed response by myself
-* Because of DRY principle both `ArticleCreate` and `ArticleUpdate` view should use [blog/article_form.html](../blog/templates/blog/article_form.html) as template
+* For ajax purposes `ArticleCreateView` and `ArticleUpdateView` views should use View class to feed response by myself
+* Because of DRY principle both `ArticleCreateView` and `ArticleUpdateView` view should use [blog/article_form.html](../blog/templates/blog/article_form.html) as template
   - Pass in `form_action` for front-end form to know the action of form
 * Should include `page_obj` for paginator, for Django paginator, [reference](https://docs.djangoproject.com/en/3.1/topics/pagination/)
+* In `ArticleDeleteView`, use `OwnerDeleteView`
 
 
 <a id="blog-urls"></a>

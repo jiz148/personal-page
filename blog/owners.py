@@ -40,5 +40,9 @@ class OwnerUpdateView(LoginRequiredMixin, UpdateView):
 class OwnerDeleteView(LoginRequiredMixin, DeleteView):
     """
     Sub-class the Delete View for owners
+    restrict a User from deleting other user's data.
     """
-    pass
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(owner=self.request.user)
