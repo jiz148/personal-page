@@ -19,12 +19,12 @@
 {% endif %}
 <span style="float: right;">
 ({{ article.updated_at }}) <!-- probably use naturaltime later -->
-{% comment %}
 {% if article.owner == user %}
-<a href="{% url 'blog:article_update' article.id %}"></a>
+<a href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a>
+{% comment %}
 <a href="{% url 'blog:article_delete' article.id %}"></a>
-{% endif %}
 {% endcomment %}
+{% endif %}
 </span>
 <h1>
     {{ article.title }}

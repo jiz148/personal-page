@@ -1,7 +1,7 @@
 {% load crispy_forms_tags %}
 
 <p>
-<form id="article-form" method="post" action="{% url 'blog:article_create' %}" enctype='multipart/form-data'>
+<form id="article-form" method="post" action="{{ form_action }}" enctype='multipart/form-data'>
   {% csrf_token %}
   {{ form|crispy }}
   <input type = "submit" value="Submit" id="article-submit">

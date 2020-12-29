@@ -202,6 +202,7 @@
 ### Authentication System Front-end
 
 > The authentication system view will be created automatically by Django \
+> The authentication system view will be created automatically by Django \
 > since I'm using the Django built-in authentication 
 > Already created account app in back-end
 
@@ -265,15 +266,17 @@
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
 
 
-#### Create Category Detail Template
+#### Create Article-Category list Template
 
-* In [blog/category_detail.html](../blog/templates/blog/article_category_list.html), list each article within that category
+* In [blog/article_category_list.html](../blog/templates/blog/article_category_list.html), list each article within that category
 * Loads the `article_set.all` given by the `catetory`
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
 * Should display fields: owner, updated_at, category
 * Should have choice of adding and removing to favorites by a star button
 * Should have choice of updating and deleting for the owners
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
+* Should include paginator using ajax
+* In Django templates, remember to put `''` around `url` parameter in `$ajax`
 
 
 #### Create Article Detail Template
@@ -417,7 +420,11 @@
 * 'ArticleListView' Should return the last 10 items of `Article`
 * Here the `CategoryDetailView` is for list every article within that category, ordered by `-updated_at`
 * Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
-* For `ArticleCreate`, `ArticleUpdate` views, in [owners.py](../blog/owners.py), override the generic views to save owners, and `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
+* For `ArticleCreate`, `ArticleUpdate` views, use `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
+* For ajax purposes `ArticleCreate` and `ArticleUpdate` views should use View class to feed response by myself
+* Because of DRY principle both `ArticleCreate` and `ArticleUpdate` view should use [blog/article_form.html](../blog/templates/blog/article_form.html) as template
+  - Pass in `form_action` for front-end form to know the action of form
+* Should include `page_obj` for paginator, for Django paginator, [reference](https://docs.djangoproject.com/en/3.1/topics/pagination/)
 
 
 <a id="blog-urls"></a>

@@ -1,14 +1,13 @@
-import json
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
 
 from .owners import \
     OwnerListView, \
     OwnerDetailView, \
-    OwnerDeleteView, \
-    OwnerUpdateView
+    OwnerDeleteView
 from .models import Article, Category
 from .forms import CreateForm
 
@@ -53,15 +52,24 @@ class ArticleCreateView(LoginRequiredMixin, View):
     template_name = ARTICLE_FORM_HTML
     success_template_name = ARTICLE_LIST_HTML
 
+    # get the url needed for form action
+    form_action = reverse_lazy('blog:article_create')
+
     def get(self, request):
         form = CreateForm()
-        ctx = {'form': form}
+        ctx = {
+            'form': form,
+            'form_action': self.form_action,
+        }
         return render(request, self.template_name, ctx)
 
     def post(self, request):
         form = CreateForm(request.POST, request.FILES or None)
         if not form.is_valid():
-            ctx = {'form': form}
+            ctx = {
+                'form': form,
+                'form_action': self.form_action,
+            }
             return render(request, self.template_name, ctx)
 
         # add owner to the model before saving
@@ -75,8 +83,43 @@ class ArticleCreateView(LoginRequiredMixin, View):
         return render(request, self.success_template_name, ctx)
 
 
-class ArticleUpdateView(OwnerUpdateView):
-    model = Article
+class ArticleUpdateView(LoginRequiredMixin, View):
+    template_name = ARTICLE_FORM_HTML
+    success_template_name = ARTICLE_LIST_HTML
+
+    def get(self, request, pk):
+        # get the url needed for form action
+        form_action = reverse_lazy('blog:article_update', kwargs={'pk': pk})
+
+        article = get_object_or_404(Article, pk=pk, owner=request.user)
+        form = CreateForm(instance=article)
+        ctx = {
+            'form': form,
+            'form_action': form_action,
+        }
+        return render(request, self.template_name, ctx)
+
+    def post(self, request, pk):
+        # get the url needed for form action
+        form_action = reverse_lazy('blog:article_update', kwargs={'pk': pk})
+
+        article = get_object_or_404(Article, pk=pk, owner=request.user)
+        form = CreateForm(request.POST, request.FILES or None, instance=article)
+
+        if not form.is_valid():
+            ctx = {
+                'form': form,
+                'form_action': form_action,
+            }
+            return render(request, self.template_name, ctx)
+
+        article = form.save(commit=False)
+        article.save()
+
+        # instead of redirecting, return the article list html for front-end to generate to content
+        article_list = Article.objects.all().select_related().order_by('-updated_at')[:10]
+        ctx = {'article_list': article_list}
+        return render(request, self.success_template_name, ctx)
 
 
 class ArticleDeleteView(OwnerDeleteView):
