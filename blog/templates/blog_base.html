@@ -18,7 +18,9 @@
                     <input class="form-control mr-sm-2" type="text" placeholder="Search in Blog..." aria-label="Search" id="search-str">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
-                <li><a href="" onclick="$ajax.generateContent('{% url "blog:article_create" %}', '#blog-content');return false;">Create New Article</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="" onclick="$ajax.generateContent('{% url "blog:article_create" %}', '#blog-content');return false;">Create New Article</a></li>
+                {% endif %}
                 <li><a href="" onclick="$ajax.generateContent('{% url "blog:article_list" %}', '#blog-content');return false;">Back to Blog</a></li>
             </ul>
         </div>
