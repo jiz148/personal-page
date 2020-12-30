@@ -7,13 +7,17 @@
         <div class="col-md-2">
             <ul class="sidebar">
                 {% for category in category_list %}
-                <li>
-                    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_list"%}?category_id={{ category.id }}', '#blog-content');return false;">
-                        {{ category.name }}
-                    </a>
-                </li>
+                    <li>
+                        <a href="#" onclick="$ajax.generateContent('{% url "blog:article_list"%}?category_id={{ category.id }}', '#blog-content');return false;">
+                            {{ category.name }}
+                        </a>
+                    </li>
                 {% endfor %}
                 <hr>
+                <form id="article-search-form" class="form-inline mt-2 mt-md-0" action="{% url 'blog:article_list' %}" method="get">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search in Blog..." aria-label="Search" id="search-str">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
                 <li><a href="" onclick="$ajax.generateContent('{% url "blog:article_create" %}', '#blog-content');return false;">Create New Article</a></li>
                 <li><a href="" onclick="$ajax.generateContent('{% url "blog:article_list" %}', '#blog-content');return false;">Back to Blog</a></li>
             </ul>

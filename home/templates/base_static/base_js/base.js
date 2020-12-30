@@ -1,4 +1,5 @@
 const home_url = 'home/'
+const blog_url = 'blog/'
 
 $(document).ready(function () {
     const ajax = {};

@@ -8,6 +8,22 @@ $(document).ready(function () {
             alert('Url failed with ' + xhr.status + ' ' + url)
         });
     }
+    $('#article-search-form').submit(function (event){
+        // prevent Default event of form
+        event.preventDefault();
+
+        $.ajax({
+            method: $(this).attr('method'),
+            url: $(this).attr('action'),
+            data: {
+                search: $('#search-str').val(),
+            },
+            success: function (res){
+                // generate main-content first, then blog-content
+                $('#blog-content').html(res);
+            },
+        })
+    });
 
     // After blog base generated, generate blog page
     window.$ajax.generateContent(blog_url, '#blog-content');
