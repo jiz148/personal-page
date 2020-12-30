@@ -3,12 +3,16 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.db.utils import IntegrityError
+from django.http import HttpResponse
 
 from .owners import \
     OwnerListView, \
     OwnerDetailView, \
     OwnerDeleteView
-from .models import Article, Category, Comment
+from .models import Article, Category, Comment, Favorite
 from .forms import ArticleForm, CommentForm
 
 BLOG_BASE_HTML = 'blog_base.html'
@@ -25,9 +29,22 @@ class BlogBaseView(OwnerListView):
 
 class ArticleListView(OwnerListView):
     model = Article
+    template_name = ARTICLE_LIST_HTML
 
-    def get_queryset(self):
-        return super().get_queryset().select_related().order_by('-updated_at')[:10]
+    def get(self, request):
+        article_list = Article.objects.select_related().order_by('-updated_at')[:10]
+
+        # favorites
+        favorites = list()
+        if request.user.is_authenticated:
+            favorites = _get_favorites(request)
+
+        ctx = {
+            'article_list': article_list,
+            'favorites': favorites,
+        }
+
+        return render(request, self.template_name, ctx)
 
 
 class ArticleCategoryListView(View):
@@ -38,11 +55,20 @@ class ArticleCategoryListView(View):
         article_list = \
             Article.objects.select_related('category').filter(category__id=category_id).order_by('-updated_at')
 
+        # favorites
+        favorites = list()
+        if request.user.is_authenticated:
+            favorites = _get_favorites(request)
+
         paginator = Paginator(article_list, self.paginate_by)  # Show paginate_by articles per page.
 
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-        return render(request, self.template_name, {'page_obj': page_obj})
+        ctx = {
+            'page_obj': page_obj,
+            'favorites': favorites,
+        }
+        return render(request, self.template_name, ctx)
 
 
 class ArticleDetailView(OwnerDetailView):
@@ -51,7 +77,16 @@ class ArticleDetailView(OwnerDetailView):
 
     def get(self, request, pk):
         article = get_object_or_404(Article, pk=pk)
+
+        # favorites
+        favorites = list()
+        if request.user.is_authenticated:
+            favorites = _get_favorites(request)
+
         ctx = _get_comment_ctx(article)
+        # favorites
+        ctx['favorites'] = favorites
+
         return render(request, self.template_name, ctx)
 
 
@@ -170,3 +205,46 @@ def _get_comment_ctx(article):
         'comment_form': comment_form,
     }
     return ctx
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AddFavoriteView(LoginRequiredMixin, View):
+
+    def post(self, request, pk):
+        article = get_object_or_404(Article, pk=pk)
+        fav = Favorite(owner=request.user, article=article)
+
+        try:
+            fav.save()
+        # In case of duplicate key
+        except IntegrityError:
+            pass
+
+        return HttpResponse()
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class DeleteFavoriteView(LoginRequiredMixin, View):
+
+    def post(self, request, pk):
+        article = get_object_or_404(Article, pk=pk)
+        try:
+            Favorite.objects.get(owner=request.user, article=article).delete()
+        except Favorite.DoesNotExist:
+            pass
+
+        return HttpResponse()
+
+
+def _get_favorites(request):
+    """
+    Gets the favorite articles' ids from request.user
+    Input: request
+    @return: <list> List of article ids
+    """
+    # rows = [{'id': 2}, {'id': 4} ... ]  (A list of article ids)
+    rows = request.user.favorite_article.values('id')
+    # favorites = [2, 4, ...] using list comprehension
+    favorites = [row['id'] for row in rows]
+
+    return favorites

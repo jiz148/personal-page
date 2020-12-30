@@ -35,6 +35,20 @@
         <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a> )
     {% endif %}
 </h2>
+<p>
+    {% if user.is_authenticated %}
+        <!-- Two hrefs with each - one showing and one hidden -->
+        <a href="#" onclick="$ajax.favArticle('{% url 'blog:article_favorite' article.id %}', {{ article.id }});return false;"
+                {% if article.id in favorites %} style="display: none;" {% endif %} id="favorite_{{ article.id }}">
+            Add to Favorites
+        </a>
+        <!-- the second href -->
+        <a href="#" onclick="$ajax.favArticle('{% url 'blog:article_unfavorite' article.id %}', {{ article.id }});return false;"
+                {% if article.id not in favorites %} style="display: none;" {% endif %} id="unfavorite_{{ article.id }}">
+            Unfavorite
+        </a>
+    {% endif %}
+</p>
 {% if article.picture %}
     <img src="{{ MEDIA_URL }}{{ article.picture }}" style="max-width: 40%;max-height: 40%;"
          onclick="document.getElementById('overlay').style.display = 'block'"; alt="article picture">

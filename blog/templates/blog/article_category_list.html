@@ -12,6 +12,18 @@
                         ( <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_update" article.id %}', '#blog-content');return false;">Update</a> |
                         <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_delete" article.id %}', '#blog-content');return false;">Delete</a> )
                     {% endif %}
+                    {% if user.is_authenticated %}
+                        <!-- Two hrefs with each - one showing and one hidden -->
+                        <a href="#" onclick="$ajax.favArticle('{% url 'blog:article_favorite' article.id %}', {{ article.id }});return false;"
+                                {% if article.id in favorites %} style="display: none;" {% endif %} id="favorite_{{ article.id }}">
+                        Add to Favorites
+                        </a>
+                        <!-- the second href -->
+                        <a href="#" onclick="$ajax.favArticle('{% url 'blog:article_unfavorite' article.id %}', {{ article.id }});return false;"
+                                {% if article.id not in favorites %} style="display: none;" {% endif %} id="unfavorite_{{ article.id }}">
+                        Unfavorite
+                        </a>
+                    {% endif %}
                 </p>
                 <p><small style="color: dimgrey">updated at: {{ article.updated_at }}</small></p>
                 <div class="wrapper">
@@ -40,6 +52,7 @@
     </span>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         function goToPage(page) {

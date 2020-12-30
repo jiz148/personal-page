@@ -262,7 +262,7 @@
 * Loads the `article_list` given by the View
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
 * Should display fields: owner, updated_at, category
-* Should have choice of adding and removing to favorites by a star button
+* Should have choice of adding and removing to favorites
 * Should have choice of updating and deleting for the owners
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
 
@@ -273,7 +273,7 @@
 * Loads the `article_set.all` given by the `catetory`
 * Display only first 100 characters of text using `{{ article|slice:":100" }}`
 * Should display fields: owner, updated_at, category
-* Should have choice of adding and removing to favorites by a star button
+* Should have choice of adding and removing to favorites
 * Should have choice of updating and deleting for the owners
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
 * Should include paginator using ajax
@@ -285,9 +285,10 @@
 * In [blog/article_detail.html](../blog/templates/blog/article_detail.html), display details of the article
 * Should include title, text, picture on the side 
 * Should display created_at, updated_at, category
-* Should have choice of adding and removing to favorites by a star button
+* Should have choice of adding and removing to favorites
 * Should have choice of updating and deleting for the owners
 * Each Should have form for comments (should only display after user login)
+* Should have choice to delete comments
 
 
 #### Create Article Form Template
@@ -443,6 +444,7 @@
 * Should have `CommentCreateView` and `CommentDeleteView`.
   - `CommnetCreateView` should take the article's `pk` and add Comment to db
   - `CommentDeleteView` should take `pk`(comment id) as parameter, use `LoginRequereMixin` and delete comment from db
+* Should have `AddFavoriteView` and `DeleteFavoriteView` for users to add or delete favorite articles
 
 
 <a id="blog-urls"></a>
@@ -454,6 +456,8 @@
 * Should include blog urls in `mysite/urls.py`, like `path('blog', include('blog.urls')),`
 * Should include `base`, `article_list`, `article_create`
 * Should include `category_detail`, `article_detail`, `article_update`, `article_delete` with `pk` as a parameter
+* Should include `comment_create`, and `comment_delete` with parameters `pk` with meaning of article id and comment id
+* Should include `article_favorite` and `article_unfavorite` with parameters `pk`
 
 
 <a id="deploy"></a>
