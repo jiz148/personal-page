@@ -440,6 +440,9 @@
   - Pass in `form_action` for front-end form to know the action of form
 * Should include `page_obj` for paginator, for Django paginator, [reference](https://docs.djangoproject.com/en/3.1/topics/pagination/)
 * In `ArticleDeleteView`, use `OwnerDeleteView`
+* Should have `CommentCreateView` and `CommentDeleteView`.
+  - `CommnetCreateView` should take the article's `pk` and add Comment to db
+  - `CommentDeleteView` should take `pk`(comment id) as parameter, use `LoginRequereMixin` and delete comment from db
 
 
 <a id="blog-urls"></a>

@@ -8,10 +8,11 @@ from .owners import \
     OwnerListView, \
     OwnerDetailView, \
     OwnerDeleteView
-from .models import Article, Category
-from .forms import ArticleForm
+from .models import Article, Category, Comment
+from .forms import ArticleForm, CommentForm
 
 BLOG_BASE_HTML = 'blog_base.html'
+ARTICLE_DETAIL_HTML = 'blog/article_detail.html'
 ARTICLE_FORM_HTML = 'blog/article_form.html'
 ARTICLE_LIST_HTML = 'blog/article_list.html'
 ARTICLE_CATEGORY_LIST_HTML = 'blog/article_category_list.html'
@@ -46,6 +47,12 @@ class ArticleCategoryListView(View):
 
 class ArticleDetailView(OwnerDetailView):
     model = Article
+    template_name = ARTICLE_DETAIL_HTML
+
+    def get(self, request, pk):
+        article = get_object_or_404(Article, pk=pk)
+        ctx = _get_comment_ctx(article)
+        return render(request, self.template_name, ctx)
 
 
 class ArticleCreateView(LoginRequiredMixin, View):
@@ -125,3 +132,41 @@ class ArticleUpdateView(LoginRequiredMixin, View):
 class ArticleDeleteView(OwnerDeleteView):
     model = Article
     success_url = reverse_lazy('blog:article_list')
+
+
+class CommentCreateView(LoginRequiredMixin, View):
+
+    def post(self, request, pk):
+        article = get_object_or_404(Article, pk=pk)
+        comment = Comment(text=request.POST['comment'], owner=request.user, article=article)
+        comment.save()
+
+        # return the article detail page instead
+        ctx = _get_comment_ctx(article)
+        return render(request, ARTICLE_DETAIL_HTML, ctx)
+
+
+class CommentDeleteView(OwnerDeleteView):
+    model = Comment
+    template_name = "blog/comment_confirm_delete.html"
+
+    def get_success_url(self):
+        article = self.object.article
+        return reverse_lazy('blog:article_detail', args=[article.id])
+
+
+def _get_comment_ctx(article):
+    """
+    Input: article
+    @return:
+    <Dict> ctx
+    context of {'article': <Article>, 'comments': <QuerySet>, 'comment_form': <Form>}
+    """
+    comments = Comment.objects.filter(article=article).order_by('-updated_at')
+    comment_form = CommentForm()
+    ctx = {
+        'article': article,
+        'comments': comments,
+        'comment_form': comment_form,
+    }
+    return ctx

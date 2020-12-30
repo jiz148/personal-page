@@ -1,16 +1,16 @@
-<h1>Delete Article</h1>
+<h1>Delete Comment</h1>
 
-<p>Are you sure you want to delete the article: {{ article }}?</p>
+<p>Are you sure you want to delete the comment: {{ comment }}?</p>
 
-<form id="article-delete-form" action="{% url 'blog:article_delete' article.id %}" method="POST">
+<form id="comment-delete-form" action="{% url 'blog:article_comment_delete' comment.id %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="Yes, delete.">
-    <input type="submit" value="Cancel" onclick="$ajax.generateContent('{% url "blog:article_list" %}', '#blog-content'); return false;">
+    <input type="submit" value="Cancel" onclick="$ajax.generateContent('{% url "blog:article_detail" comment.article.id %}', '#blog-content'); return false;">
 </form>
 
 <script>
     $(document).ready(function (){
-        $('#article-delete-form').submit(function (event){
+        $('#comment-delete-form').submit(function (event){
 
             // prevent the form from automatically jump to the success url
             event.preventDefault();

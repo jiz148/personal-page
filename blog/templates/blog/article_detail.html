@@ -46,24 +46,39 @@
     <br clear="all"/>
     <p>
         {% load crispy_forms_tags %}
-    <form method="post" action="{% url 'blog:article_comment_create' article.id %}">
+    <form id="comment-form" method="post" action="{% url 'blog:article_comment_create' article.id %}">
         {% csrf_token %}
         {{ comment_form|crispy }}
         <input type="submit" value="Submit">
-        <input type="submit" value="Cancel" onclick="window.location.href='{% url 'blog:all' %}';return false;">
     </form>
     </p>
 {% endif %}
-{% comment %}
 {% for comment in comments %}
-<p> {{ comment.text }}
-    ({{ comment.updated_at|naturaltime }})
-    {% if user == comment.owner %}
-    <a href="{% url 'blog:article_comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
-    {% endif %}
-</p>
+    <p> {{ comment.text }}
+        ({{ comment.updated_at }}) <!-- probably natural time later -->
+        {% if user == comment.owner %}
+            <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_comment_delete" comment.id %}', '#blog-content'); return false;">(Delete)</a>
+        {% endif %}
+    </p>
 {% endfor %}
-{% endcomment %}
 <p>
     <a href="#" onclick="$ajax.generateContent('{% url "blog:article_list" %}', '#blog-content');return false;">All blog</a>
 </p>
+
+<script>
+    $(document).ready(function () {
+        $('#comment-form').submit(function(event){
+            // prevent default behavior of form
+            event.preventDefault();
+
+            $.ajax({
+                url: $(this).attr('action'),
+                method: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function (res){
+                    $('#blog-content').html(res);
+                }
+            });
+        });
+    });
+</script>
