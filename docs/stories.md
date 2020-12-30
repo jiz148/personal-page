@@ -267,19 +267,6 @@
 * Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
 
 
-#### Create Article-Category list Template
-
-* In [blog/article_category_list.html](../blog/templates/blog/article_category_list.html), list each article within that category
-* Loads the `article_set.all` given by the `catetory`
-* Display only first 100 characters of text using `{{ article|slice:":100" }}`
-* Should display fields: owner, updated_at, category
-* Should have choice of adding and removing to favorites
-* Should have choice of updating and deleting for the owners
-* Each Article should have a "Read More" Button to generate the full article detail to `blog-conent`
-* Should include paginator using ajax
-* In Django templates, remember to put `''` around `url` parameter in `$ajax`
-
-
 #### Create Article Detail Template
 
 * In [blog/article_detail.html](../blog/templates/blog/article_detail.html), display details of the article
@@ -431,9 +418,9 @@
 
 * [views.py](../blog/views.py)
 * Should have [owners.py](../blog/owners.py) to override generic views
-* Should include `BlogBaseView`,`ArticleListView`, `ArticleCategoryListView`, `ArticleDetailView`
-* 'ArticleListView' Should return the last 10 items of `Article`
-* Here the `CategoryDetailView` is for list every article within that category, ordered by `-updated_at`
+* Should include `BlogBaseView`,`ArticleListView`, `ArticleDetailView`
+* 'ArticleListView' Should return list of articles
+* At the same time `ArticleListView` should listen for the `search` and `category_id` for search function and category article list
 * Should include `ArticleCreateView`, `ArticleUpdateView`, `ArticleDeleteView`
 * For `ArticleCreate`, `ArticleUpdate` views, use `LoginRequiredMixin` to require user to login to access the view, remember to put the mixin in the first place
 * For ajax purposes `ArticleCreateView` and `ArticleUpdateView` views should use View class to feed response by myself
@@ -445,7 +432,8 @@
   - `CommnetCreateView` should take the article's `pk` and add Comment to db
   - `CommentDeleteView` should take `pk`(comment id) as parameter, use `LoginRequereMixin` and delete comment from db
 * Should have `AddFavoriteView` and `DeleteFavoriteView` for users to add or delete favorite articles
-
+* `ArticleListView` Should include a search parameter lookup to return searched articles by both title and text
+* For multiple search, it is recommended to use `Q` to make queries
 
 <a id="blog-urls"></a>
 #### Create Blog Urls

@@ -8,7 +8,7 @@
             <ul class="sidebar">
                 {% for category in category_list %}
                 <li>
-                    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_category_list" category.id %}', '#blog-content');return false;">
+                    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_list"%}?category_id={{ category.id }}', '#blog-content');return false;">
                         {{ category.name }}
                     </a>
                 </li>

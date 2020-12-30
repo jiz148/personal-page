@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.db.utils import IntegrityError
 from django.http import HttpResponse
+from django.db.models import Q
 
 from .owners import \
     OwnerListView, \
@@ -19,7 +20,6 @@ BLOG_BASE_HTML = 'blog_base.html'
 ARTICLE_DETAIL_HTML = 'blog/article_detail.html'
 ARTICLE_FORM_HTML = 'blog/article_form.html'
 ARTICLE_LIST_HTML = 'blog/article_list.html'
-ARTICLE_CATEGORY_LIST_HTML = 'blog/article_category_list.html'
 
 
 class BlogBaseView(OwnerListView):
@@ -27,47 +27,42 @@ class BlogBaseView(OwnerListView):
     template_name = BLOG_BASE_HTML
 
 
-class ArticleListView(OwnerListView):
-    model = Article
+class ArticleListView(View):
     template_name = ARTICLE_LIST_HTML
+    paginate_by = 10
 
     def get(self, request):
-        article_list = Article.objects.select_related().order_by('-updated_at')[:10]
+        article_list = Article.objects.select_related().order_by('-updated_at')
+        search_str = request.GET.get('search', False)
+        category_id = request.GET.get('category_id', -1)
+
+        # multi-field search
+        if search_str:
+            query = Q(title__contains=search_str)
+            query.add(Q(text__contains=search_str), Q.OR)
+            article_list = article_list.filter(query)
+
+        # category
+        if int(category_id) >= 0:
+            article_list = article_list.filter(category_id=category_id)
 
         # favorites
         favorites = list()
         if request.user.is_authenticated:
             favorites = _get_favorites(request)
 
-        ctx = {
-            'article_list': article_list,
-            'favorites': favorites,
-        }
-
-        return render(request, self.template_name, ctx)
-
-
-class ArticleCategoryListView(View):
-    paginate_by = 10
-    template_name = ARTICLE_CATEGORY_LIST_HTML
-
-    def get(self, request, category_id):
-        article_list = \
-            Article.objects.select_related('category').filter(category__id=category_id).order_by('-updated_at')
-
-        # favorites
-        favorites = list()
-        if request.user.is_authenticated:
-            favorites = _get_favorites(request)
-
+        # paginator
         paginator = Paginator(article_list, self.paginate_by)  # Show paginate_by articles per page.
-
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
+
         ctx = {
             'page_obj': page_obj,
             'favorites': favorites,
+            'search': search_str,
+            'category_id': category_id,
         }
+
         return render(request, self.template_name, ctx)
 
 

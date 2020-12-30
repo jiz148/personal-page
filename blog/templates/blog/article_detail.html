@@ -22,7 +22,7 @@
 </span>
 <h1>
     {{ article.title }}
-    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_category_list" article.category.id %}', '#blog-content');return false;">
+    <a href="#" onclick="$ajax.generateContent('{% url "blog:article_list" %}?category_id={{ article.category.id }}', '#blog-content');return false;">
         <small class="text-muted">
             {{ article.category.name }}
         </small>
