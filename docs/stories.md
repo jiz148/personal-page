@@ -503,13 +503,13 @@
 * Add [uwsgi.ini](../uwsgi.ini)
 * `sudo yum install git`
 * Clone project from git repo
-* Building image by going to the project folder in server and `sudo docker build -t django_docker_img:v1 .`
+* Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
 * `sudo docker images` to look at local images
-* `sudo docker run -it -d --name personal-page -p 80:8000 django_docker_img:v1`
+* `sudo docker run -it -d --name personal_site -p 80:8000 persona_site_img:v1`
   - `-it` means running interactively and have a pseudo TTY
   - named the container as personal-page
   - `-p` means port
-* Use  `sudo docker exec -it personal-site /bin/bash` to enter the bash
+* Use  `sudo docker exec -it personal_site /bin/bash` to enter the bash
 * `export` the **secret key**, the key name is from [settings.py](../mysite/settings.py)
 * **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
-* `sh start.sh` or `sudo docker exec -it personal-site /bin/bash start.sh` one time
+* `sh start.sh` or `sudo docker exec -it personal_site /bin/bash start.sh` one time
