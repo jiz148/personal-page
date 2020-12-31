@@ -505,7 +505,7 @@
 * Add [uwsgi.ini](../uwsgi.ini)
 * `sudo yum install git`
 * Clone project from git repo
-* Modify the `docker-comose.yml` file for the `DJ_SECRET_KEY`
+* Modify the `docker-comose.yml` file for the `DJ_SECRET_KEY`, notice that if the secret key contains `$`, with need to escape it by `$$`
 * `docker-compose up`
 * Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
 * `sudo docker images` to look at local images

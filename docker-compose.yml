@@ -1,9 +1,0 @@
-services:
-  web:
-    build: .
-    ports:
-      - "80:8000"
-    environment:
-      DJ_SECRET_KEY: ''
-  redis:
-    image: "personal-page:v1"
