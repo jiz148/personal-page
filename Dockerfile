@@ -6,7 +6,9 @@ MAINTAINER jiz148
 
 # config python evironment variables
 ENV PYTHONUNBUFFERED 1
-ENV DJ_SECRET_KEY=$DJ_SECRET_KEY
+ARG key
+ENV DJ_SECRET_KEY=$key
+RUN echo `$DJANGO_SECRET_KEY`
 
 # 在容器内/var/www/html/下创建 mysite1文件夹
 # in container /var/www/html/, make personal-page directory

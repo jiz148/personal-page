@@ -1,0 +1,10 @@
+services:
+  web:
+    build: .
+    ports:
+      - "80:8000"
+  redis:
+    image: "personal-page:v1"
+  build:
+    args:
+      - key=''

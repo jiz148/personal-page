@@ -495,15 +495,16 @@
 
 
 * Use ssh or something to login to server, mine is Centos7
-* export `DJ_SECRET_KEY`
 * **Optional** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
 * **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
 * [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
 * Add [Dockerfile](../Dockerfile)
+* Add [docker-compose.yml](../docker-compose.yml)
 * Add uwsgi to [requirements.txt](../requirements.txt)
 * Add [start.sh](../start.sh)
 * Add [uwsgi.ini](../uwsgi.ini)
 * `sudo yum install git`
+* modfiy the `docker-comose.yml` file for the `DJ_SECRET_KEY`
 * Clone project from git repo
 * Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
 * `sudo docker images` to look at local images
