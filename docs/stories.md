@@ -472,6 +472,7 @@
 ### Config Deployment Settings
 
 * Config the `ALLOWED_HOST` by adding `['*']`
+* Turn the `DEBUG` to `DEBUG = env('DJANGO_DEBUG', default=False)`
 
 
 <a id="server"></a>
@@ -510,6 +511,5 @@
   - named the container as personal-page
   - `-p` means port
 * Use  `sudo docker exec -it personal_page /bin/bash` to enter the bash
-* `export` the **secret key**, the key name is from [settings.py](../mysite/settings.py)
 * **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
 * `sh start.sh` or `sudo docker exec -it personal_page /bin/bash start.sh` one time
