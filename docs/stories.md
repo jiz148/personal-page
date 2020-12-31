@@ -495,6 +495,7 @@
 
 
 * Use ssh or something to login to server, mine is Centos7
+* export `DJ_SECRET_KEY`
 * **Optional** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
 * **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
 * [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
