@@ -1,9 +1,9 @@
 services:
   web:
-    build:
-      args:
-        - key=''
+    build: .
     ports:
       - "80:8000"
   redis:
     image: "personal-page:v1"
+  environment:
+    DJANGO_SECRET_KEY: ''
