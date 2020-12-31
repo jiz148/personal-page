@@ -17,5 +17,11 @@ WORKDIR /var/www/html/personal-page
 # add current files to working directory
 ADD . /var/www/html/personal-page
 
-# 利用 pip 安装依赖
+# pip install
 RUN pip install -r requirements.txt
+
+# remove \r becuase start.sh is writen in Windows
+RUN sed -i 's/\r//' ./start.sh
+
+# set chmod of start.sy
+RUN chmod +x ./start.sh

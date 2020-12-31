@@ -476,14 +476,40 @@
 
 <a id="server"></a>
 ### Config Raw Server
+> Using docker uwski single container structure to build the server side Structure \
+>  personal-page \
+>  ├── db.sqlite3 \
+ ├── Dockerfile \
+ ├── manage.py \
+ ├── mysite \
+ │   ├── asgi.py \
+ │   ├── __init__.py \
+ │   ├── settings.py \
+ │   ├── urls.py \
+ │   └── wsgi.py \
+ ├── requirements.txt # include：django==3.1.4 uwsgi==2.0.19 \
+ ├── start.sh # or Makefile \
+ └── uwsgi.ini # uwsg config
+
+
 
 * Use ssh or something to login to server, mine is Centos7
 * **Optional** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
 * **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
 * [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
 * Add [Dockerfile](../Dockerfile)
+* Add uwsgi to [requirements.txt](../requirements.txt)
+* Add [start.sh](../start.sh)
+* Add [uwsgi.ini](../uwsgi.ini)
 * `sudo yum install git`
 * Clone project from git repo
 * Building image by going to the project folder in server and `sudo docker build -t django_docker_img:v1 .`
 * `sudo docker images` to look at local images
-* 
+* `sudo docker run -it -d --name personal-page -p 80:8000 django_docker_img:v1`
+  - `-it` means running interactively and have a pseudo TTY
+  - named the container as personal-page
+  - `-p` means port
+* Use  `sudo docker exec -it personal-site /bin/bash` to enter the bash
+* `export` the **secret key**, the key name is from [settings.py](../mysite/settings.py)
+* **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
+* `sh start.sh` or `sudo docker exec -it personal-site /bin/bash start.sh` one time
