@@ -38,6 +38,7 @@
 * [Deployment](#deploy)
   - [Secret Key](#secret)
   - [Config Deployment Settings](#config-d)
+  - [Config Raw Server](#server)
 
 
 <a id="initiate"></a>
@@ -471,3 +472,14 @@
 ### Config Deployment Settings
 
 * Config the `ALLOWED_HOST` by adding `['*']`
+
+
+<a id="server"></a>
+### Config Raw Server
+
+* Use ssh or something to login to server, mine is Centos7
+* **Optional** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
+* **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
+* [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
+* Add [Dockerfile](../Dockerfile)
+* 
