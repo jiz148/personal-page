@@ -482,4 +482,8 @@
 * **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
 * [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
 * Add [Dockerfile](../Dockerfile)
+* `sudo yum install git`
+* Clone project from git repo
+* Building image by going to the project folder in server and `sudo docker build -t django_docker_img:v1 .`
+* `sudo docker images` to look at local images
 * 
