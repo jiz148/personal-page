@@ -528,11 +528,22 @@
 * `sudo yum install git` and clone project from git repo
 * Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
 * `sudo docker images` to look at local images
-* `sudo docker run -it -d --name personal_page -p 80:8000 persona_site_img:v1`
+* `sudo docker run -it --name personal-page \
+  -p 8000:8000 \
+  -v /root/TeamGH/personal-page:/var/www/html/personal-page \
+  -d pp_img:v1`
   - `-it` means running interactively and have a pseudo TTY
   - named the container as personal-page
   - `-p` means port
+  - `-d` means running in background
+  - `-v` means linking the root in server and link root in container
 * Use  `sudo docker exec -it personal_page /bin/bash` to enter the bash
 * `export` the `DJ_SECRET_KEY` in the container
 * **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
 * `sh start.sh` or `sudo docker exec -it personal_page /bin/bash start.sh` one time
+* Go to nginx directory and `sudo docker build -t nginx_img:v1 .`
+* Run the nginx container by `sudo docker run -it -p 80:80 --name personal-page-nginx \
+ -v /root/TeamGH/personal-page/static:/usr/share/nginx/html/static \
+ -v /root/TeamGH/personal-page/media:/usr/share/nginx/html/media \
+ -v /root/TeamGH/personal-page/compose/nginx/log:/var/log/nginx \
+ -d nginx_img:v1`
