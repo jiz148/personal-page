@@ -14,7 +14,7 @@ RUN mkdir -p /var/www/html/personal-page
 WORKDIR /var/www/html/personal-page
 
 # add current files to working directory
-ADD . /var/www/html/personal-page
+ADD ../.. /var/www/html/personal-page
 
 # pip install
 RUN pip install -r requirements.txt

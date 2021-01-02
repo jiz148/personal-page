@@ -39,6 +39,9 @@
   - [Secret Key](#secret)
   - [Config Deployment Settings](#config-d)
   - [Config Raw Server](#server)
+    - [Config Uwsgi and Docker](#uwsgi)
+    - [Config Nginx and Docker](#uwsgi)
+    - [Start Server](#start-server)
 
 
 <a id="initiate"></a>
@@ -477,10 +480,16 @@
 
 <a id="server"></a>
 ### Config Raw Server
-> Using docker uwski single container structure to build the server side Structure \
+> Using docker uwsgi and nginx containers structure to build the server side Structure \
 >  personal-page \
->  ├── db.sqlite3 \
- ├── Dockerfile \
+ ├── compose \
+ │   ├── nginx \
+ │   │   ├──  Dockerfile # nginx \
+ │   │   ├──  log # for nginx logs \
+ │   │   ├──  nginx.conf \
+ │   │   ├──  ssl # https \
+ ├── db.sqlite3 \
+ ├──  Dockerfile # for uwsgi \
  ├── manage.py \
  ├── mysite \
  │   ├── asgi.py \
@@ -493,20 +502,30 @@
  └── uwsgi.ini # uwsg config
 
 
+<a id="uwsgi"></a>
+#### Config Uwsgi and Docker
 
-* Use ssh or something to login to server, mine is Centos7
-* **Optional** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
-* **Optional** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
-* [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
-* Add [Dockerfile](../Dockerfile)
-* Add [docker-compose.yml](../docker-compose.yml)
 * Add uwsgi to [requirements.txt](../requirements.txt)
 * Add [start.sh](../start.sh)
 * Add [uwsgi.ini](../uwsgi.ini)
-* `sudo yum install git`
-* Clone project from git repo
-* Modify the `docker-comose.yml` file for the `DJ_SECRET_KEY`, notice that if the secret key contains `$`, with need to escape it by `$$`
-* `docker-compose up`
+* Add [Dockerfile](../Dockerfile)
+
+
+<a id="nginx"></a>
+#### Config Nginx and Docker
+
+* Add [nginx/Dockerfile](../compose/nginx/Dockerfile)
+* Add [nginx/nginx.conf](../compose/nginx/nginx.conf)
+
+
+<a id="start-server"></a>
+#### Start Server
+
+* Use ssh or something to login to server, mine is Centos7
+* **Optional, not needed if using docker** [Install python3.7](https://tecadmin.net/install-python-3-7-on-centos/)
+* **Optional, not needed if using docker** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
+* [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
+* `sudo yum install git` and clone project from git repo
 * Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
 * `sudo docker images` to look at local images
 * `sudo docker run -it -d --name personal_page -p 80:8000 persona_site_img:v1`
@@ -514,5 +533,6 @@
   - named the container as personal-page
   - `-p` means port
 * Use  `sudo docker exec -it personal_page /bin/bash` to enter the bash
+* `export` the `DJ_SECRET_KEY` in the container
 * **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
 * `sh start.sh` or `sudo docker exec -it personal_page /bin/bash start.sh` one time
