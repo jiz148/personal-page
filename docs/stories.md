@@ -541,6 +541,7 @@
 * `export` the `DJ_SECRET_KEY` in the container
 * **Optional, not needed if use uWSGI** `python manage.py migrate`, `python manage.py runserver 0.0.0.0:8000` and go to ip, then we can see the page is running
 * `sh start.sh` or `sudo docker exec -it personal_page /bin/bash start.sh` one time
+* `chown www-data:www-data .` and `chown www-data:www-data ./db.sqlite` for users to access database
 * Go to nginx directory and `sudo docker build -t nginx_img:v1 .`
 * Run the nginx container by `sudo docker run -it -p 80:80 --name personal-page-nginx \
  -v /root/TeamGH/personal-page/static:/usr/share/nginx/html/static \
