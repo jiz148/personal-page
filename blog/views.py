@@ -32,36 +32,10 @@ class ArticleListView(View):
     paginate_by = 10
 
     def get(self, request):
-        article_list = Article.objects.select_related().order_by('-updated_at')
         search_str = request.GET.get('search', False)
         category_id = request.GET.get('category_id', -1)
 
-        # multi-field search
-        if search_str:
-            query = Q(title__contains=search_str)
-            query.add(Q(text__contains=search_str), Q.OR)
-            article_list = article_list.filter(query)
-
-        # category
-        if int(category_id) >= 0:
-            article_list = article_list.filter(category_id=category_id)
-
-        # favorites
-        favorites = list()
-        if request.user.is_authenticated:
-            favorites = _get_favorites(request)
-
-        # paginator
-        paginator = Paginator(article_list, self.paginate_by)  # Show paginate_by articles per page.
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-
-        ctx = {
-            'page_obj': page_obj,
-            'favorites': favorites,
-            'search': search_str,
-            'category_id': category_id,
-        }
+        ctx = _get_article_list_ctx(request, search_str, category_id, paginate_by=self.paginate_by)
 
         return render(request, self.template_name, ctx)
 
@@ -115,8 +89,7 @@ class ArticleCreateView(LoginRequiredMixin, View):
         article.save()
 
         # instead of redirecting, return the article list html for front-end to generate to content
-        article_list = Article.objects.all().select_related().order_by('-updated_at')[:10]
-        ctx = {'article_list': article_list}
+        ctx = _get_article_list_ctx(request)
         return render(request, self.success_template_name, ctx)
 
 
@@ -154,8 +127,7 @@ class ArticleUpdateView(LoginRequiredMixin, View):
         article.save()
 
         # instead of redirecting, return the article list html for front-end to generate to content
-        article_list = Article.objects.all().select_related().order_by('-updated_at')[:10]
-        ctx = {'article_list': article_list}
+        ctx = _get_article_list_ctx(request)
         return render(request, self.success_template_name, ctx)
 
 
@@ -243,3 +215,42 @@ def _get_favorites(request):
     favorites = [row['id'] for row in rows]
 
     return favorites
+
+
+def _get_article_list_ctx(request, search_str=None, category_id=-1, paginate_by=10):
+    """
+    Gets the context for article_list template
+    @return: <dict> context of article list
+    """
+
+    # article list
+    article_list = Article.objects.select_related().order_by('-updated_at')
+
+    # multi-field search
+    if search_str:
+        query = Q(title__contains=search_str)
+        query.add(Q(text__contains=search_str), Q.OR)
+        article_list = article_list.filter(query)
+
+    # category
+    if int(category_id) >= 0:
+        article_list = article_list.filter(category_id=category_id)
+
+    # favorites
+    favorites = list()
+    if request.user.is_authenticated:
+        favorites = _get_favorites(request)
+
+    # paginator
+    paginator = Paginator(article_list, paginate_by)  # Show paginate_by articles per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    ctx = {
+        'page_obj': page_obj,
+        'favorites': favorites,
+        'search': search_str,
+        'category_id': category_id,
+    }
+
+    return ctx

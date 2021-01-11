@@ -68,6 +68,7 @@
     </p>
 {% endif %}
 {% for comment in comments %}
+    <p> {{ comment.owner }}: </p>
     <p> {{ comment.text }}
         ({{ comment.updated_at }}) <!-- probably natural time later -->
         {% if user == comment.owner %}

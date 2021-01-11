@@ -548,3 +548,5 @@
  -v /root/TeamGH/personal-page/media:/usr/share/nginx/html/media \
  -v /root/TeamGH/personal-page/compose/nginx/log:/var/log/nginx \
  -d nginx_img:v1`
+* `docker exec -it personal-page-nginx /bin/bash` to go to nginx container
+* `chown -R www-data:www-data /usr/share/nginx/` for uploading files
