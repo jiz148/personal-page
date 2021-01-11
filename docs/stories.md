@@ -526,7 +526,7 @@
 * **Optional, not needed if using docker** [Install pip](https://www.liquidweb.com/kb/how-to-install-pip-on-centos-7/)
 * [Centos7 install docker](https://docs.docker.com/engine/install/centos/)
 * `sudo yum install git` and clone project from git repo
-* Building image by going to the project folder in server and `sudo docker build -t persona_site_img:v1 .`
+* Building image by going to the project folder in server and `sudo docker build -t pp_img:v1 .`
 * `sudo docker images` to look at local images
 * `sudo docker run -it --name personal-page \
   -p 8000:8000 \
