@@ -10,7 +10,7 @@ $(document).ready(function () {
     };
 
     ajax.showLoading = function showLoading (selector) {
-        $(selector).html('<img src="{% static \'base_images/ajax-loading.gif\' %}" height="200" width="200">')
+        $(selector).html('<div><img src="{% static \'base_images/ajax-loading.gif\' %}</div>" height="200" width="200">')
     };
 
     // generate main-content if location is main page when page is loaded
