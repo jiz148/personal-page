@@ -11,7 +11,8 @@ $(document).ready(function () {
     $('#article-search-form').submit(function (event){
         // prevent Default event of form
         event.preventDefault();
-
+        // show loading first
+        window.$ajax.showLoading('#blog-content')
         $.ajax({
             method: $(this).attr('method'),
             url: $(this).attr('action'),

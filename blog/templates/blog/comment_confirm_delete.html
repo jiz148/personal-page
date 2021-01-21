@@ -14,6 +14,8 @@
 
             // prevent the form from automatically jump to the success url
             event.preventDefault();
+            // show loading first
+            window.$ajax.showLoading('#blog-content')
 
             $.ajax({
                 method: $(this).attr('method'),

@@ -200,6 +200,8 @@
 * Should import js from static
 * Implementing Ajax using jQuery
 * Give the DOM ajax object with ajax functions after loading the page
+* Include a show loading function to show loading gif before the page is load
+* Notice in js file, the path for static root should be same with django static root, that is, for now, `static/`
 * [base.js](../home/templates/base_static/base_js/base.js)
 
 

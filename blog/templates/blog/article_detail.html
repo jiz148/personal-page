@@ -85,6 +85,8 @@
         $('#comment-form').submit(function(event){
             // prevent default behavior of form
             event.preventDefault();
+            // show loading first
+            window.$ajax.showLoading('#blog-content')
 
             $.ajax({
                 url: $(this).attr('action'),

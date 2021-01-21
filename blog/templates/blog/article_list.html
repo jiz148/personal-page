@@ -56,6 +56,8 @@
 <script>
     $(document).ready(function () {
         function goToPage(page) {
+            // show loading first
+            window.$ajax.showLoading('#blog-content')
             $.ajax({
                 type: 'GET',
                 url: '{% url "blog:article_list" %}',  // get category id for url

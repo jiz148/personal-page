@@ -34,6 +34,8 @@
             });
 
             formData.append('{{ form.upload_field_name }}', file);
+            // show loading first
+            window.$ajax.showLoading('#blog-content')
 
             $.ajax({
                 data: formData,
