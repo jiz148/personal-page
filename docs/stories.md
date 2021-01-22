@@ -282,6 +282,7 @@
 * Should have choice of updating and deleting for the owners
 * Each Should have form for comments (should only display after user login)
 * Should have choice to delete comments
+* Article text and comments text should use `linebreaks` and `urlize` to support line lines and urls
 
 
 #### Create Article Form Template

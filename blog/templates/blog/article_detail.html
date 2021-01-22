@@ -54,7 +54,7 @@
          onclick="document.getElementById('overlay').style.display = 'block'"; alt="article picture">
 {% endif %}
 <p>
-    {{ article.text }}
+    {{ article.text | linebreaks | urlize }}
 </p>
 {% if user.is_authenticated %}
     <br clear="all"/>
@@ -69,7 +69,7 @@
 {% endif %}
 {% for comment in comments %}
     <p> {{ comment.owner }}: </p>
-    <p> {{ comment.text }}
+    <p> {{ comment.text | urlize }}
         ({{ comment.updated_at }}) <!-- probably natural time later -->
         {% if user == comment.owner %}
             <a class="text-black-50" href="#" onclick="$ajax.generateContent('{% url "blog:article_comment_delete" comment.id %}', '#blog-content'); return false;">(Delete)</a>
