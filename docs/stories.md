@@ -531,10 +531,7 @@
 * `sudo yum install git` and clone project from git repo
 * Building image by going to the project folder in server and `sudo docker build -t pp_img:v1 .`
 * `sudo docker images` to look at local images
-* `sudo docker run -it --name personal-page \
-  -p 8000:8000 \
-  -v /root/TeamGH/personal-page:/var/www/html/personal-page \
-  -d pp_img:v1`
+* `sudo docker run -it --name personal-page -p 8000:8000 -v /root/TeamGH/personal-page:/var/www/html/personal-page -d pp_img:v1`
   - `-it` means running interactively and have a pseudo TTY
   - named the container as personal-page
   - `-p` means port
@@ -546,10 +543,6 @@
 * `sh start.sh` or `sudo docker exec -it personal_page /bin/bash start.sh` one time
 * `chown www-data:www-data .` and `chown www-data:www-data ./db.sqlite3` for users to access database
 * Go to nginx directory and `sudo docker build -t nginx_img:v1 .`
-* Run the nginx container by `sudo docker run -it -p 80:80 --name personal-page-nginx \
- -v /root/TeamGH/personal-page/static:/usr/share/nginx/html/static \
- -v /root/TeamGH/personal-page/media:/usr/share/nginx/html/media \
- -v /root/TeamGH/personal-page/compose/nginx/log:/var/log/nginx \
- -d nginx_img:v1`
+* Run the nginx container by `sudo docker run -it -p 80:80 --name personal-page-nginx -v /root/TeamGH/personal-page/static:/usr/share/nginx/html/static -v /root/TeamGH/personal-page/media:/usr/share/nginx/html/media -v /root/TeamGH/personal-page/compose/nginx/log:/var/log/nginx -d nginx_img:v1`
 * `docker exec -it personal-page-nginx /bin/bash` to go to nginx container
 * `chown -R www-data:www-data /usr/share/nginx/` for uploading files
