@@ -28,4 +28,4 @@ RUN cat ./start.sh
 RUN chmod +x ./start.sh
 
 # start service
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT /bin/bash ./start.sh
