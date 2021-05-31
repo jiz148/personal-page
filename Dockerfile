@@ -21,10 +21,10 @@ RUN pip install -r requirements.txt
 
 # remove \r becuase start.sh is writen in Windows
 RUN sed -i '1s/^.*#//;s/\r$//' ./start.sh
+RUN cat ./start.sh
 
 # set chmod of start.sy
 RUN chmod +x ./start.sh
 
 # start service
-ENTRYPOINT cat ./start.sh
 ENTRYPOINT /bin/bash ./start.sh
