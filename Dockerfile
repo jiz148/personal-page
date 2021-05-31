@@ -26,4 +26,5 @@ RUN sed -i '1s/^.*#//;s/\r$//' ./start.sh
 RUN chmod +x ./start.sh
 
 # start service
+ENTRYPOINT cat ./start.sh
 ENTRYPOINT /bin/bash ./start.sh
