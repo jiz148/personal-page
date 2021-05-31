@@ -20,7 +20,7 @@ ADD . /var/www/html/personal-page
 RUN pip install -r requirements.txt
 
 # remove \r becuase start.sh is writen in Windows
-RUN sed -i '1s/^.*#//;s/\r$//' ./start.sh
+# RUN sed -i '1s/^.*#//;s/\r$//' ./start.sh
 RUN cat ./start.sh
 
 # set chmod of start.sy
