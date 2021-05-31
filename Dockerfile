@@ -24,6 +24,3 @@ RUN sed -i 's/\r//' ./start.sh
 
 # set chmod of start.sy
 RUN chmod +x ./start.sh
-
-# start service
-ENTRYPOINT /bin/bash ./start.sh
