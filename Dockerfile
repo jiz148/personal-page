@@ -7,7 +7,7 @@ MAINTAINER jiz148
 # config python evironment variables
 ENV PYTHONUNBUFFERED 1
 
-ENV APP_HOME=/var/www/html/myproject
+ENV APP_HOME=/var/www/html/personal-page
 # in container /var/www/html/, make personal-page directory
 RUN mkdir -p $APP_HOME
 
