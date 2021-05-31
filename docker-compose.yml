@@ -14,7 +14,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./myproject:/var/www/html/personal-page
+      - .:/var/www/html/personal-page
       - static_vol:/var/www/html/personal-page/static # volume as static
       - media_vol:/var/www/html/personal-page/media # volume as media
       - ./compose/uwsgi:/tmp # uwsgi log
