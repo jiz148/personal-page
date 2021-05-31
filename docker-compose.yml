@@ -20,9 +20,7 @@ services:
       - ./compose/uwsgi:/tmp # uwsgi log
     networks:
       - nginx_network
-      - redis_network
     depends_on:
-      - redis
     restart: always
     tty: true
     stdin_open: true
