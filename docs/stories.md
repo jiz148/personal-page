@@ -42,6 +42,7 @@
     - [Config Uwsgi and Docker](#uwsgi)
     - [Config Nginx and Docker](#uwsgi)
     - [Start Server](#start-server)
+    - [Docker-compose](#docker-compose)
 
 
 <a id="initiate"></a>
@@ -546,3 +547,11 @@
 * Run the nginx container by `sudo docker run -it -p 80:80 --name personal-page-nginx -v /root/TeamGH/personal-page/static:/usr/share/nginx/html/static -v /root/TeamGH/personal-page/media:/usr/share/nginx/html/media -v /root/TeamGH/personal-page/compose/nginx/log:/var/log/nginx -d nginx_img:v1`
 * `docker exec -it personal-page-nginx /bin/bash` to go to nginx container
 * `chown -R www-data:www-data /usr/share/nginx/` for uploading files
+
+
+<a id="docker-compose"></a>
+#### Docker Compose
+
+* Create [docker-compose.yml](../docker-compose.yml)
+* `sudo docker-compose build`
+* `sudo docker-compose up`

@@ -1,0 +1,47 @@
+version: "3"
+
+volumes: # customize volumes
+  media_vol: # media
+  static_vol: # static
+
+networks: # customize networks
+  nginx_network:
+    driver: bridge
+
+services:
+  web:
+    build: .
+    expose:
+      - "8000"
+    volumes:
+      - ./myproject:/var/www/html/personal-page
+      - static_vol:/var/www/html/personal-page/static # volume as static
+      - media_vol:/var/www/html/personal-page/media # volume as media
+      - ./compose/uwsgi:/tmp # uwsgi log
+    networks:
+      - nginx_network
+      - redis_network
+    depends_on:
+      - redis
+    restart: always
+    tty: true
+    stdin_open: true
+
+  nginx:
+    build: ./compose/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    expose:
+      - "80"
+    volumes:
+      - ./compose/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf # nginx config
+      - ./compose/nginx/ssl:/usr/share/nginx/ssl # ssl
+      - ./compose/nginx/log:/var/log/nginx # log
+      - static_vol:/usr/share/nginx/html/static # static
+      - media_vol:/usr/share/nginx/html/media # media
+    networks:
+      - nginx_network
+    depends_on:
+      - web
+    restart: always
