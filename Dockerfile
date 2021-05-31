@@ -28,7 +28,7 @@ RUN cat ./start.sh
 RUN chmod +x ./start.sh
 
 # DJ pw
-RUN export DJ_SECRET_KEY='gqptn5bq0l2\$_t=v+^xtj5_+m+7z$76njld5h06!3-+t&vt97'
+RUN export DJ_SECRET_KEY='gqptn5bq0l2$_t=v+^xtj5_+m+7z$76njld5h06!3-+t&vt97'
 
 # start service
 ENTRYPOINT ["./start.sh"]
