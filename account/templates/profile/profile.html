@@ -37,7 +37,7 @@
     function generateBlogArticle (url) {
         $ajax.generateContent('{% url "blog:base" %}', '#main-content');
         setTimeout(() => {
-            $ajax.generateContent(url, '#blog-content')}, 300);
+            $ajax.generateContent(url, '#blog-content')}, 1000);
     }
     {#function generateBlogArticle (url) {#}
     {#    generateContentAsync('{% url "blog:base" %}', '#main-content').then(#}
