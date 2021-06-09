@@ -23,6 +23,7 @@
                         <img style="width: 25px;" src=""/><b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
+                        <li><a href="#" onclick="$ajax.generateContent('{%  url "account:profile" %}', '#main-content')">Profile</a></li>
                         <li><a href="{% url 'account:logout' %}">Logout</a></li>
                     </ul>
                 </li>

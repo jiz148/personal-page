@@ -24,11 +24,13 @@
         - [Build Ajax](#ajax)
   - [Authentication System Front-end](#auth-front)
     - [User Sign-up Front-end](#sign-up-front)
+    - [User Update Front-end](#user-update-front)
   - [Create Home Page](#home-page)
   - [Create Blog Templates](#blog-templates)
 * [Back-end](#back)
   - [Authentication System Back-end](#auth-back)
     - [User Sign-up Back-end](#sign-up-back)
+    - [User Update Back-end](#user-update-back)
   - [Home Page Back-end](#home-back)
   - [Blog Back-end](#blog-back)
     - [Create Blog Model](#blog-models)
@@ -43,6 +45,8 @@
     - [Config Nginx and Docker](#uwsgi)
     - [Start Server](#start-server)
     - [Docker-compose](#docker-compose)
+* [Additional Functionalities](#addition)
+  - [Create Profile](#blog-profile)
 
 
 <a id="initiate"></a>
@@ -225,6 +229,16 @@
 * Display error in red each loop
 
 
+<a id="user-update-front"></a>
+#### User Update Front-end
+
+* Create [account/templates/registration/update.html](../account/templates/registration/update.html)
+* Extends `base_page.html`
+* Loop through the fields in the form provided by back end
+* Display error in red each loop
+* Should only include updating options of email, bio, birthday, location
+
+
 #### User Login Template
 
 * Extends Base Page
@@ -355,6 +369,15 @@
 > Somehow the Django Built-in system doesn't support a sign-up page \
 > Therefore I'm building my own by creating an account app
 > [reference](https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html)
+
+
+<a id="user-update-back></a>
+#### User Update Back-end
+
+* Similar with sign-up
+* Create update form in [account/forms.py](../account/forms.py)
+* Create View in [account/views.py](../account/views.py)
+* Add url path to [account/urls.py](../account/urls.py)
 
 
 ### Profile Model
@@ -555,3 +578,17 @@
 * Create [docker-compose.yml](../docker-compose.yml)
 * `sudo docker-compose build`
 * `sudo docker-compose up`
+
+
+<a id="addition"></a>
+## Additional Functionality
+
+
+<a id="blog-profile"></a>
+### Create Profile
+
+* templates should under account app
+* [profile/profile.html](../account/templates/profile/profile.html)
+* Add Profile class to [account/view.py](../account/views.py)
+* Add profile url to [account/url.py](../account/urls.py)
+* Add profile button to [base_page.html](../home/templates/base_page.html)
