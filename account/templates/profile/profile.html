@@ -33,9 +33,19 @@
     {% endif %}
 </div>
 <script>
-    async function generateBlogArticle (url) {
-        // wait for blog to finish, use async/await
-        await $ajax.generateContent('{% url "blog:base" %}', '#main-content')
-        $ajax.generateContent(url, '#blog-content')
+    // wait for blog to finish, use async/await
+    function generateBlogArticle (url) {
+        $ajax.generateContent('{% url "blog:base" %}', '#main-content');
+        setTimeout(() => {
+            $ajax.generateContent(url, '#blog-content')}, 300);
     }
+    {#function generateBlogArticle (url) {#}
+    {#    generateContentAsync('{% url "blog:base" %}', '#main-content').then(#}
+    {#        $ajax.generateContent(url, '#blog-content')#}
+    {#    );#}
+    {#}#}
+    {#async function generateContentAsync(url, content_id) {#}
+    {#    $ajax.generateContent(url, content_id);#}
+    {#    return;#}
+    {#}#}
 </script>
