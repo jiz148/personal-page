@@ -39,13 +39,4 @@
         setTimeout(() => {
             $ajax.generateContent(url, '#blog-content')}, 1000);
     }
-    {#function generateBlogArticle (url) {#}
-    {#    generateContentAsync('{% url "blog:base" %}', '#main-content').then(#}
-    {#        $ajax.generateContent(url, '#blog-content')#}
-    {#    );#}
-    {#}#}
-    {#async function generateContentAsync(url, content_id) {#}
-    {#    $ajax.generateContent(url, content_id);#}
-    {#    return;#}
-    {#}#}
 </script>

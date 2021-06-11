@@ -47,6 +47,7 @@
     - [Docker-compose](#docker-compose)
 * [Additional Functionalities](#addition)
   - [Create Profile](#blog-profile)
+  - [Huffman Encoding](#huffman)
 
 
 <a id="initiate"></a>
@@ -592,3 +593,19 @@
 * Add Profile class to [account/view.py](../account/views.py)
 * Add profile url to [account/url.py](../account/urls.py)
 * Add profile button to [base_page.html](../home/templates/base_page.html)
+
+
+<a id="huffman"></a>
+### Huffman Encoding
+> Encodes a string (or potentially a file) of 8 bits (1 byte) ascii, or even larger unicode bits,
+> to a string of 1 bit binary numbers (0's and 1's)
+> Therefore this technique can be used to compress files
+> e.g a 775-character long ascii string can be stored to a 3421-character long b-string
+> [reference of bits and bytes](https://web.stanford.edu/class/cs101/bits-bytes.html)
+
+#### Backend
+
+* Should use Graph and BinaryHeap
+* Receives a string from frontend through post to [huffman/views.py](../huffman/views.py)
+* Then by an object imported from [huffman/utils/huffman.py](../huffman/utils/huffman.py), get a table of frequencies, and an encoded string
+* Here, for application of modern computers, firstly, I get the encoded bit-string from a unicode string. Then, for every 8 characters in the bit-string, I get a byte-string, and make a 8-bit character. And thus the string will be shorter, and even an ascii byte-string.
